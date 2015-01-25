@@ -1,0 +1,7 @@
+# Current assumption is that local is an Ubuntu 14.04 LTS OS
+---                                                                                
+- name: set alias for resetting audio
+  lineinfile: dest=~/.bashrc line="alias fixaudio='pulseaudio -k && sudo alsa force-reload'"
+
+- name: set caps lock to escape
+  lineinfile: dest=~/.bashrc line="sudo /usr/bin/setxkbmap -option 'caps:escape'"

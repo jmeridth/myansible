@@ -1,0 +1,121 @@
+---                                                                                
+- name: get pip installation file
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=~/ validate_certs=no
+
+# for some reason sudo: yes and sudo_user: {{ ansible_ssh_user }} doesn't work :(
+- name: install pip
+  shell: sudo python ~/get-pip.py
+
+- name: install python modules
+  sudo: yes
+  action: shell pip install virtualenv tox virtualenvwrapper
+
+- name: add git-core ppa                                                       
+  sudo: yes                                                                    
+  apt_repository: repo='ppa:git-core/ppa' state=present                        
+                                                                               
+- name: add ansible ppa                                                       
+  sudo: yes                                                                    
+  apt_repository: repo='ppa:ansible/ansible' state=present                        
+
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg={{ item }} state=latest update_cache=yes                              
+  with_items:                                                                  
+    - build-essential
+    - software-properties-common                                               
+    - python-software-properties                                               
+    - tmux                                                                     
+    - vim                                                                      
+    - python-dev                                                               
+    - ipython                                                                  
+    - libxml2-dev                                                              
+    - libxslt1-dev                                                             
+    - cmake                                                                    
+    - libz-dev                                                                 
+    - fontconfig                                                               
+    - vpnc                                                                     
+    - network-manager-vpnc                                                     
+    - curl                                                                     
+    - wget                                                                     
+    - libffi-dev
+    - git
+    - ansible
+                                                                               
+- name: setup directories                                                      
+  file: path=~/{{ item.path }} owner={{ ansible_ssh_user }}
+        group={{ ansible_ssh_user }} mode=0755 state=directory
+  with_items:                                                                  
+    - { path: '.vimswap' }                                                     
+    - { path: '.vimbackup' }                                                   
+    - { path: '.vim' }                                                         
+    - { path: '.vim/colors' }                                                  
+    - { path: '.vim/bundle' }                                                  
+    - { path: 'dev' }                                                          
+                                                                               
+- name: get dotfiles repo                                                      
+  git: repo=https://github.com/jmeridth/dotfiles.git                           
+       dest=~/dev/dotfiles accept_hostkey=True
+                                                                               
+- name: setup files                                                            
+  file: src=~/dev/dotfiles/{{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }}
+        group={{ ansible_ssh_user }} state=link                                              
+  with_items:                                                                  
+    - { name: '.tmux.conf' }                                                   
+    - { name: '.vimrc' }                                                       
+    - { name: '.gitconfig' }                                                   
+    - { name: '.bashjm' }                                                      
+                                                                               
+- name: get git repo                                                           
+  git: repo=git@github.com:git/git.git                           
+       dest=~/dev/git accept_hostkey=True
+                                                                               
+- name: setup git completion                                                   
+  copy: src=~/dev/git/contrib/completion/git-completion.bash
+        dest=~/.git-completion.bash owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
+                                                                               
+- name: source git completion file                                             
+  action: shell /bin/bash -c "source ~/.git-completion.bash"
+                                                                               
+- name: setup bashrc                                                           
+  lineinfile: dest=~/.bashrc line="source ~/.bashjm"
+
+- name: set editor variable in bashrc
+  lineinfile: dest=~/.bashrc line="export EDITOR=vim"
+
+- name: setup bashrc with ls alias
+  lineinfile: dest=~/.bashrc line='alias ls="ls -lah --color"'
+
+- name: source bashrc
+  action: shell /bin/bash -c "source ~/.bashrc"
+                                                                               
+- name: get Vundle repository                                                  
+  git: repo=https://github.com/gmarik/Vundle.vim.git                           
+       dest=~/.vim/bundle/Vundle.vim                                           
+                                                                               
+- name: run Vundle                                                             
+  action: shell vim +PluginInstall! +qall
+                                                                               
+- name: delete .vim colors folder
+  file: path=~/.vim/colors/ state=absent
+
+# this is much faster than a copy
+- name: move vim colors from vim-colorschemes bundle                           
+  command: mv ~/.vim/bundle/vim-colorschemes/colors ~/.vim/
+
+# have to do this or vundle plugin install will bork next time
+- name: put colors folder back in vim-colorschemes bundle
+  shell: git reset --hard
+  args:
+    chdir: ~/.vim/bundle/vim-colorschemes
+
+# this takes a LONG time
+# for some reason sudo: yes and sudo_user: {{ ansible_ssh_user }} doesn't work :(
+- name: finish YouCompleteMe compilation
+  shell: sudo ./install.sh --clang-completer
+  args:
+    chdir: ~/.vim/bundle/YouCompleteMe
+
+- name: clean up apt stuff
+  sudo: yes
+  action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
