@@ -8,7 +8,7 @@ Example:
     123.23.23.25
 
     [local]
-    localhost
+    localhost  ansible_connection=local
 
 How to run:
 
