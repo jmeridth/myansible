@@ -14,6 +14,14 @@
   sudo: yes                                                                    
   apt_repository: repo='ppa:git-core/ppa' state=present                        
                                                                                
+- name: add docker key to local keychain
+  sudo: yes                                                                    
+  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x36A1D7869245C8950F966E92D8576A8BA88D21E9 state=present
+
+- name: add docker repository to apt sources
+  sudo: yes
+  shell: curl -s https://get.docker.io/ubuntu/ | sudo sh
+
 - name: add ansible ppa                                                       
   sudo: yes                                                                    
   apt_repository: repo='ppa:ansible/ansible' state=present                        
