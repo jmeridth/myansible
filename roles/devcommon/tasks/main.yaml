@@ -10,10 +10,6 @@
   sudo: yes
   action: shell pip install virtualenv tox virtualenvwrapper
 
-- name: add git-core ppa                                                       
-  sudo: yes                                                                    
-  apt_repository: repo='ppa:git-core/ppa' state=present                        
-                                                                               
 - name: add docker key to local keychain
   sudo: yes                                                                    
   apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x36A1D7869245C8950F966E92D8576A8BA88D21E9 state=present
@@ -22,33 +18,20 @@
   sudo: yes
   shell: curl -s https://get.docker.io/ubuntu/ | sudo sh
 
-- name: add ansible ppa                                                       
-  sudo: yes                                                                    
-  apt_repository: repo='ppa:ansible/ansible' state=present                        
-
 - name: install packages                                                       
   sudo: yes                                                                    
   apt: pkg={{ item }} state=latest update_cache=yes                              
   with_items:                                                                  
-    - build-essential
-    - software-properties-common                                               
     - python-software-properties                                               
-    - tmux                                                                     
-    - vim                                                                      
     - python-dev                                                               
     - ipython                                                                  
     - libxml2-dev                                                              
     - libxslt1-dev                                                             
-    - cmake                                                                    
     - libz-dev                                                                 
     - fontconfig                                                               
     - vpnc                                                                     
     - network-manager-vpnc                                                     
-    - curl                                                                     
-    - wget                                                                     
     - libffi-dev
-    - git
-    - ansible
                                                                                
 - name: setup directories                                                      
   file: path=~/{{ item.path }} owner={{ ansible_ssh_user }}
