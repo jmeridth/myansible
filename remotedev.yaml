@@ -2,5 +2,5 @@
 - hosts: remote
   roles:
     - common
-    - devcommon
-    - remotecommon
+    - dev
+    - { role: remote, default_user: jmeridth, ssh_port: 22 }

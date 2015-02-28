@@ -1,15 +1,7 @@
 ---                                                                                
 - name: install packages                                                       
   sudo: yes                                                                    
-  apt: pkg={{ item }} state=latest update_cache=yes                              
-  with_items:                                                                  
-    - build-essential
-    - software-properties-common                                               
-    - default-jdk
-    - tmux                                                                     
-    - vim                                                                      
-    - curl                                                                     
-    - wget                                                                     
+  apt: pkg=default-jdk state=latest update_cache=yes                              
                                                                                
 - name: setup directory
   file: path=~minecraft owner={{ ansible_ssh_user }}

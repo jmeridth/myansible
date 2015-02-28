@@ -1,0 +1,10 @@
+---                                                                                
+- include: users.yaml
+  tags: users
+
+- include: iptables.yaml
+  tags: iptables
+
+- include: ssh.yaml
+  tags: ssh
+
