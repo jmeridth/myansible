@@ -1,0 +1,35 @@
+---                                                                                
+- name: create default user
+  sudo: yes
+  user: name={{ default_user }} shell=/bin/bash group={{ default_group }}
+
+- name: ensure .ssh folder exists
+  file: path=/home/{{ default_user }}/.ssh state=directory
+
+- name: copy public ssh file to authorized_keys
+  authorized_key: user={{ default_user }} key="{{ lookup('file', 'files/id_rsa.pub') }}"
+
+- name: setup default iptables/firewall lockdown
+  sudo: yes
+  template: src=templates/iptables.up.rules.j2 dest=/etc/iptables.up.rules
+  
+- name: refresh iptables
+  sudo: yes
+  shell: /sbin/iptables -L
+
+- name: ensure iptables settings after reboot
+  sudo: yes
+  copy: src=files/iptables dest=/etc/network/if-pre-up.d/iptables
+
+- name: make new iptables file executable
+  sudo: yes
+  file: path=/etc/network/if-pre-up.d/iptables mode="u+e,g+e,o+e"
+
+- name: setup sshd_config
+  sudo: yes
+  template: src=templates/sshd_config.j2 dest=/etc/ssh/sshd_config
+    backup=yes
+    # want to use validate='/usr/sbin/sshd -T -f %s' if possible
+  notify:
+  - restart sshd
+

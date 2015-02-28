@@ -1,0 +1,29 @@
+---                      
+- include: packages.yaml                                                          
+  tags: packages
+
+- include: git.yaml
+  tags: git
+
+- include: filesystem.yaml
+  tags: filesystem
+
+- include: bashrc.yaml 
+  tags: bashrc
+
+- include: vim.yaml
+  tags: vim
+
+- name: check if desktop
+  command: dpkg-query -l ubuntu-desktop
+  register: is_desktop
+  tags: desktop
+
+- include: desktop.yaml
+  when: is_desktop|success
+  tags: desktop
+
+- name: clean up apt stuff
+  sudo: yes
+  action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
+  tags: clean

@@ -1,5 +1,5 @@
 ---                                                                                
-- name: make sure python-apt is installed
+- name: make sure python-apt is installed so ansible can install things
   sudo: yes
   action: shell apt-get install python-apt-common -y
     

@@ -1,0 +1,25 @@
+# Current assumption is that local is an Ubuntu 14.04 LTS OS
+---                                                                                
+- name: install packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
+    - vpnc
+    - network-manager-vpnc
+
+- name: check if pulseaudio is installed
+  command: dpkg-query -l pulseaudio
+  register: pulseaudio_installed
+
+- name: set alias for resetting audio
+  lineinfile: dest=~/.bashrc line="alias fixaudio='pulseaudio -k && sudo alsa force-reload'"
+  when: pulseaudio_installed|success
+
+- name: check if X11 is installed
+  command: echo $DISPLAY
+  register: x11_installed
+
+- name: set caps lock to escape
+  lineinfile: dest=~/.bashrc line="sudo /usr/bin/setxkbmap -option 'caps:escape'"
+  when: "':0' in x11_installed.stdout" 
+

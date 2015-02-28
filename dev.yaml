@@ -2,5 +2,4 @@
 - hosts: local
   roles:                                                                           
     - common
-    - devcommon
-    - localdev
+    - dev

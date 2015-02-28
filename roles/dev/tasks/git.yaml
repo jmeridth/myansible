@@ -1,0 +1,27 @@
+---
+- name: get git repo                                                           
+  git: repo=git@github.com:git/git.git                           
+       dest=~/dev/git accept_hostkey=True
+                                                                               
+- name: setup git completion                                                   
+  copy: src=~/dev/git/contrib/completion/git-completion.bash
+        dest=~/.git-completion.bash owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
+                                                                               
+- name: setup git prompts                                                   
+  copy: src=~/dev/git/contrib/completion/git-prompt.sh
+        dest=~/.git-prompt.sh owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
+
+- name: setup bashrc with git completion
+  lineinfile: dest=~/.bashrc line='source ~/.git-completion.bash'
+
+- name: setup bashrc with git prompt
+  lineinfile: dest=~/.bashrc line='source ~/.git-prompt.sh'
+
+- name: setup bashrc with git SHOWDIRTYSTATE
+  lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWDIRTYSTATE=true'
+
+- name: setup bashrc with git SHOWSTASHSTATE
+  lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWSTASHSTATE=true'
+
+- name: setup bashrc with git SHOWCOLORHINTS
+  lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWCOLORHINTS=true'

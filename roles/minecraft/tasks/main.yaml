@@ -1,0 +1,27 @@
+---                                                                                
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg={{ item }} state=latest update_cache=yes                              
+  with_items:                                                                  
+    - build-essential
+    - software-properties-common                                               
+    - default-jdk
+    - tmux                                                                     
+    - vim                                                                      
+    - curl                                                                     
+    - wget                                                                     
+                                                                               
+- name: setup directory
+  file: path=~minecraft owner={{ ansible_ssh_user }}
+        group={{ ansible_ssh_user }} mode=0755 state=directory
+                                                                               
+- name: get minecraft
+  shell: wget -O minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
+
+- name: start tmux
+  shell: tmux new -s minecraft
+
+- name: start minecraft
+  shell: java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui
+
+
