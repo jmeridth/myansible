@@ -1,16 +1,20 @@
 ---
 - name: setup default iptables/firewall lockdown
   sudo: yes
-  template: src=templates/iptables.up.rules.j2 dest=/etc/iptables.up.rules
+  template: src=iptables.up.rules.j2 dest=/etc/iptables.up.rules
   
 - name: refresh iptables
   sudo: yes
-  shell: /sbin/iptables -L
+  shell: /sbin/iptables -F
+
+- name: set iptables
+  sudo: yes
+  shell: /sbin/iptables-restore < /etc/iptables.up.rules
 
 - name: ensure iptables settings after reboot
   sudo: yes
-  copy: src=files/iptables dest=/etc/network/if-pre-up.d/iptables
+  copy: src=iptables dest=/etc/network/if-pre-up.d/iptables
 
 - name: make new iptables file executable
   sudo: yes
-  file: path=/etc/network/if-pre-up.d/iptables mode="u+e,g+e,o+e"
+  file: path=/etc/network/if-pre-up.d/iptables mode="u+x,g+x,o+x"

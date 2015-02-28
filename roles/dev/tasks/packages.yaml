@@ -10,6 +10,14 @@
   sudo: yes
   action: shell pip install virtualenv tox virtualenvwrapper
 
+- name: add git-core ppa                                                       
+  sudo: yes                                                                    
+  apt_repository: repo='ppa:git-core/ppa' state=present                        
+                                                                               
+- name: add ansible ppa                                                       
+  sudo: yes                                                                    
+  apt_repository: repo='ppa:ansible/ansible' state=present                        
+
 - name: add docker key to local keychain
   sudo: yes                                                                    
   apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x36A1D7869245C8950F966E92D8576A8BA88D21E9 state=present
@@ -22,6 +30,10 @@
   sudo: yes                                                                    
   apt: pkg={{ item }} state=latest update_cache=yes                              
   with_items:                                                                  
+    - git
+    - ansible
+    - nodejs-legacy
+    - npm
     - python-software-properties                                               
     - python-dev                                                               
     - ipython                                                                  
@@ -30,3 +42,7 @@
     - libz-dev                                                                 
     - fontconfig                                                               
     - libffi-dev
+
+- name: install keybase
+  sudo: yes
+  shell: sudo npm install -g keybase-installer && sudo keybase-installer

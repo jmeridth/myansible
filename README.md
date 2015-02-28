@@ -12,7 +12,7 @@ Example:
 
 How to run:
 
-    ansible-playbook remotedev.yaml -u [username] -k
+    ansible-playbook remote.yaml -u [username] -k
 
 The `-k` will prompt you for the password.  Look at ansible docs for how to avoid doing this.
 

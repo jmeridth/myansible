@@ -1,4 +1,8 @@
 ---
+- name: create default group
+  sudo: yes
+  group: name={{ default_group }} state=present
+
 - name: create default user
   sudo: yes
   user: name={{ default_user }} shell=/bin/bash group={{ default_group }}
@@ -7,4 +11,4 @@
   file: path=/home/{{ default_user }}/.ssh state=directory
 
 - name: copy public ssh file to authorized_keys
-  authorized_key: user={{ default_user }} key="{{ lookup('file', 'files/id_rsa.pub') }}"
+  authorized_key: user={{ default_user }} key="{{ lookup('file', 'id_rsa.pub') }}"

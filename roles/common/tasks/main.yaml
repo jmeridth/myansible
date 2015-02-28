@@ -7,14 +7,6 @@
   sudo: yes
   lineinfile: "dest=/etc/sudoers state=present regexp='^%admin' line='%admin ALL=(ALL) NOPASSWD: ALL'"
 
-- name: add git-core ppa                                                       
-  sudo: yes                                                                    
-  apt_repository: repo='ppa:git-core/ppa' state=present                        
-                                                                               
-- name: add ansible ppa                                                       
-  sudo: yes                                                                    
-  apt_repository: repo='ppa:ansible/ansible' state=present                        
-
 - name: install packages                                                       
   sudo: yes                                                                    
   apt: pkg={{ item }} state=latest update_cache=yes                              
@@ -26,11 +18,3 @@
     - cmake                                                                    
     - curl                                                                     
     - wget                                                                     
-    - git
-    - ansible
-    - nodejs-legacy
-    - npm
-
-- name: install keybase
-  sudo: yes
-  shell: sudo npm install -g keybase-installer && sudo keybase-installer
