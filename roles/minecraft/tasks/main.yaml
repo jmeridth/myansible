@@ -8,12 +8,16 @@
         group={{ ansible_ssh_user }} mode=0755 state=directory
                                                                                
 - name: get minecraft
-  shell: wget -O minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
+  command: wget -O minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
 
 - name: start tmux
-  shell: tmux new -s minecraft
+  command: tmux new -s minecraft -d
+  args:
+    chdir: /root/minecraft
 
 - name: start minecraft
-  shell: java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui
+  command: tmux send -t minecraft 'java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui' ENTER
+  args:
+    chdir: /root/minecraft
 
 
