@@ -1,11 +1,11 @@
 ---                                                                                
+- name: remove password prompt for sudo
+  sudo: yes
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
+
 - name: make sure python-apt is installed so ansible can install things
   sudo: yes
   action: shell apt-get install python-apt-common -y
-    
-- name: remove password prompt for sudo
-  sudo: yes
-  lineinfile: "dest=/etc/sudoers state=present regexp='^%admin' line='%admin ALL=(ALL) NOPASSWD: ALL'"
 
 - name: install packages                                                       
   sudo: yes                                                                    
