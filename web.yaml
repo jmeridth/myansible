@@ -3,3 +3,4 @@
   roles:
     - common
     - { role: remote, default_user: jmeridth, default_group: admin, default_ssh_port: 22 }
+    - { role: web }

@@ -3,6 +3,9 @@ My personal ansible scripts, building as I have free time
 Make sure you have hosts populated in /etc/ansible/hosts
 
 Example:
+
+    [web]
+    345.43.24.218
     
     [remote]
     123.23.23.25

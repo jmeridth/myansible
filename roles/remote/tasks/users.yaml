@@ -3,6 +3,10 @@
   sudo: yes
   group: name={{ default_group }} state=present
 
+- name: remove password prompt for default group
+  sudo: yes
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%{{ default_group }}' line='%{{ default_group }} ALL=(ALL) NOPASSWD: ALL'"
+
 - name: create default user
   sudo: yes
   user: name={{ default_user }} shell=/bin/bash group={{ default_group }}
@@ -12,3 +16,4 @@
 
 - name: copy public ssh file to authorized_keys
   authorized_key: user={{ default_user }} key="{{ lookup('file', 'id_rsa.pub') }}"
+

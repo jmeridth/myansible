@@ -18,3 +18,4 @@
     - cmake                                                                    
     - curl                                                                     
     - wget                                                                     
+    - git

@@ -1,0 +1,6 @@
+---                                                                                
+- include: nginx.yaml
+  tags: nginx
+
+- include: sites.yaml
+  tags: sites
