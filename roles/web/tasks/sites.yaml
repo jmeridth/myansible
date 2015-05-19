@@ -6,33 +6,18 @@
 - name: make sure website folders exist
   sudo: yes                                                           
   file: state=directory path=/var/www/{{ item }}/html
-  with_items:
-    - jasonmeridth.com
-    - meridth.io
-    - lucasmeridth.com
-    - bishopmeridth.com
-    - sapack12.org
+  with_items: sites
 
 - name: get github website files
   sudo: yes
   git: repo=https://github.com/jmeridth/{{ item }}.git
        dest=/var/www/{{ item }}/html
-  with_items:
-    - jasonmeridth.com
-    - meridth.io
-    - lucasmeridth.com
-    - bishopmeridth.com
-    - sapack12.org
+  with_items: sites
 
 - name: setup websites
   sudo: yes
   copy: src={{ item }} dest=/etc/nginx/sites-available/
-  with_items:
-    - jasonmeridth.com
-    - meridth.io
-    - lucasmeridth.com
-    - bishopmeridth.com
-    - sapack12.org
+  with_items: sites
 
 - name: enable websites
   sudo: yes
@@ -41,11 +26,6 @@
         owner=root
         group=root
         state=link
-  with_items:
-    - jasonmeridth.com
-    - meridth.io
-    - lucasmeridth.com
-    - bishopmeridth.com
-    - sapack12.org
+  with_items: sites
   notify:
   - restart nginx
