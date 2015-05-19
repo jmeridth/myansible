@@ -1,0 +1,13 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    root /var/www/sapack12.org/html;
+    index index.html index.htm;
+
+    server_name sapack12.org www.sapack12.org;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}

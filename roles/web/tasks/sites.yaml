@@ -11,6 +11,7 @@
     - meridth.io
     - lucasmeridth.com
     - bishopmeridth.com
+    - sapack12.org
 
 - name: get github website files
   sudo: yes
@@ -21,6 +22,7 @@
     - meridth.io
     - lucasmeridth.com
     - bishopmeridth.com
+    - sapack12.org
 
 - name: setup websites
   sudo: yes
@@ -30,6 +32,7 @@
     - meridth.io
     - lucasmeridth.com
     - bishopmeridth.com
+    - sapack12.org
 
 - name: enable websites
   sudo: yes
@@ -43,5 +46,6 @@
     - meridth.io
     - lucasmeridth.com
     - bishopmeridth.com
+    - sapack12.org
   notify:
   - restart nginx
