@@ -2,5 +2,11 @@
 - include: packages.yaml                                                          
   tags: packages
 
+- include: gemrc.yaml
+  tags: gemrc
+
 - include: chruby.yaml
   tags: chruby
+      
+- include: ruby-install.yaml
+  tags: ruby-install

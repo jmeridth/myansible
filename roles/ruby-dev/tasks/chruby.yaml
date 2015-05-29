@@ -8,3 +8,9 @@
 
 - name: install chruby
   command: sudo make install chdir="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}"
+
+- name: auto switching
+  lineinfile: dest=~/.bashrc line="source /usr/local/share/chruby/chruby.sh"
+
+- name: auto switching part two
+  lineinfile: dest=~/.bashrc line="source /usr/local/share/chruby/auto.sh"
