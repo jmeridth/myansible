@@ -7,6 +7,14 @@
   sudo: yes
   action: shell apt-get install python-apt-common -y
 
+- name: add git-core ppa                                                       
+  sudo: yes                                                                    
+  apt_repository: repo='ppa:git-core/ppa' state=present                        
+                                                                               
+- name: add ansible ppa                                                       
+  sudo: yes                                                                    
+  apt_repository: repo='ppa:ansible/ansible' state=present                        
+
 - name: install packages                                                       
   sudo: yes                                                                    
   apt: pkg={{ item }} state=latest update_cache=yes                              
@@ -18,4 +26,10 @@
     - cmake                                                                    
     - curl                                                                     
     - wget                                                                     
+    - make
     - git
+    - ansible
+    - python-software-properties
+    - libxml2-dev                                                              
+    - libxslt1-dev                                                             
+    - libffi-dev

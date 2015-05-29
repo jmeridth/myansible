@@ -1,0 +1,17 @@
+---
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg={{ item }} state=latest update_cache=yes                              
+  with_items:                                                                  
+    - zlib1g-dev
+    - libssl-dev
+    - libreadline-dev
+    - libyaml-dev
+    - libsqlite3-dev
+    - sqlite3
+    - libcurl4-openssl-dev
+
+- name: clean up 
+  sudo: yes
+  action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
+  tags: clean

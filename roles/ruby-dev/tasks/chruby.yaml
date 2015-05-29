@@ -1,0 +1,10 @@
+---
+- name: get chruby
+  get_url: url="https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
+           dest="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}.tar.gz"
+
+- name: untar chruby
+  unarchive: src="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}.tar.gz" dest="{{ ansible_env.HOME }}"
+
+- name: install chruby
+  command: sudo make install chdir="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}"

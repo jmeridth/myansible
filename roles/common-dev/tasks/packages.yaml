@@ -1,0 +1,25 @@
+---
+- name: add docker key to local keychain
+  sudo: yes                                                                    
+  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&fingerprint=on&search=0x36A1D7869245C8950F966E92D8576A8BA88D21E9 state=present
+
+- name: add docker repository to apt sources
+  sudo: yes
+  shell: curl -s https://get.docker.io/ubuntu/ | sudo sh
+
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg={{ item }} state=latest update_cache=yes                              
+  with_items:                                                                  
+    - python-software-properties                                               
+    - libz-dev                                                                 
+    - fontconfig                                                               
+
+- name: install keybase
+  sudo: yes
+  shell: sudo npm install -g keybase-installer && sudo keybase-installer
+
+- name: clean up apt stuff
+  sudo: yes
+  action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
+  tags: clean
