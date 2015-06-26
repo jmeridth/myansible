@@ -1,12 +1,12 @@
 ---
+- name: ensure bashrc exists
+  file: path=~/.bashrc state=touch
+
 - name: setup bashrc                                                           
   lineinfile: dest=~/.bashrc line="source ~/.bashjm"
-
-- name: set editor variable in bashrc
-  lineinfile: dest=~/.bashrc line="export EDITOR=vim"
 
 - name: setup bashrc with ls alias
   lineinfile: dest=~/.bashrc line='alias ls="ls -lah --color"'
 
 - name: source bashrc
-  action: shell /bin/bash -c "source ~/.bashrc"
+  shell: exec $SHELL

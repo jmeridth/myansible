@@ -11,9 +11,6 @@
 - include: bashrc.yaml 
   tags: bashrc
 
-- include: vim.yaml
-  tags: vim
-
 - name: check if desktop
   command: dpkg-query -l ubuntu-desktop
   register: is_desktop

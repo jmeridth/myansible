@@ -1,3 +1,9 @@
 ---                      
 - include: packages.yaml                                                          
   tags: packages
+
+- include: filesystem.yaml                                                          
+  tags: filesystem
+
+- include: vim.yaml                                                          
+  tags: vim

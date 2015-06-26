@@ -1,22 +1,26 @@
 ---                                                                                
+- name: stop cowsay on playbook runs
+  sudo: yes
+  shell: export ANSIBLE_NOCOWS=1
+
 - name: remove password prompt for sudo
   sudo: yes
   lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
 
 - name: make sure python-apt is installed so ansible can install things
   sudo: yes
-  action: shell apt-get install python-apt-common -y
+  shell: apt-get install python-apt-common -y
 
 - name: add git-core ppa                                                       
-  sudo: yes                                                                    
-  apt_repository: repo='ppa:git-core/ppa' state=present                        
+  sudo: yes
+  shell: add-apt-repository ppa:git-core/ppa -y
                                                                                
 - name: add ansible ppa                                                       
-  sudo: yes                                                                    
-  apt_repository: repo='ppa:ansible/ansible' state=present                        
+  sudo: yes
+  shell: add-apt-repository ppa:ansible/ansible -y
 
 - name: install packages                                                       
-  sudo: yes                                                                    
+  sudo: yes
   apt: pkg={{ item }} state=latest update_cache=yes                              
   with_items:                                                                  
     - build-essential
