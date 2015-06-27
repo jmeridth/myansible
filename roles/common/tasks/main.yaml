@@ -1,8 +1,4 @@
 ---                                                                                
-- name: stop cowsay on playbook runs
-  sudo: yes
-  shell: export ANSIBLE_NOCOWS=1
-
 - name: remove password prompt for sudo
   sudo: yes
   lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"

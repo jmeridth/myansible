@@ -1,13 +1,11 @@
 ---
-- name: get chruby
-  get_url: url="https://github.com/postmodern/chruby/archive/v{{ chruby_version }}.tar.gz"
-           dest="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}.tar.gz"
-
-- name: untar chruby
-  unarchive: src="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}.tar.gz" dest="{{ ansible_env.HOME }}"
+- name: get chruby repo
+  git: repo=git://github.com/postmodern/chruby.git
+       dest=~/.chruby accept_hostkey=True
 
 - name: install chruby
-  command: sudo make install chdir="{{ ansible_env.HOME }}/chruby-{{ chruby_version }}"
+  sudo: yes
+  shell: make install chdir="{{ ansible_env.HOME }}/.chruby"
 
 - name: auto switching
   lineinfile: dest=~/.bashrc line="source /usr/local/share/chruby/chruby.sh"
