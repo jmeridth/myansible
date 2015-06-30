@@ -1,6 +1,6 @@
 ---
 - name: get git repo                                                           
-  git: repo=git@github.com:git/git.git                           
+  git: repo=git://github.com/git/git.git                           
        dest=~/dev/git accept_hostkey=True
                                                                                
 - name: setup git completion                                                   

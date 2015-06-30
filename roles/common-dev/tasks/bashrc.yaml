@@ -9,4 +9,4 @@
   lineinfile: dest=~/.bashrc line='alias ls="ls -lah --color"'
 
 - name: source bashrc
-  shell: exec $SHELL
+  shell: . ~/.bashrc

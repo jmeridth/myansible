@@ -12,10 +12,10 @@
   tags: bashrc
 
 - name: check if desktop
-  command: echo $XDG_CURRENT_DESKTOP
+  shell: echo $XDG_CURRENT_DESKTOP
   register: is_desktop
   tags: desktop
 
 - include: desktop.yaml
-  when: is_desktop|success
+  when: is_desktop.stdout != ''
   tags: desktop

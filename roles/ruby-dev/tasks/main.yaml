@@ -10,3 +10,6 @@
       
 - include: ruby-install.yaml
   tags: ruby-install
+
+- include: prax.yaml
+  tags: prax
