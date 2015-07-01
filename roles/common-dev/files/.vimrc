@@ -21,13 +21,16 @@ Plugin 'fs111/pydoc.vim.git'
 Plugin 'rkulla/pydiction.git'
 Plugin 'nvie/vim-flake8.git'
 
+""" ruby plugins
+Plugin 'vim-ruby/vim-ruby.git'
+
 """ markdown plugins
 Plugin 'plasticboy/vim-markdown.git'
 
 """ fonts and color plugins
-Plugin 'bling/vim-airline'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'bling/vim-airline.git'
+Plugin 'flazz/vim-colorschemes.git'
+Plugin 'altercation/vim-colors-solarized.git'
 
 "" Plugin 'sjl/gundo.vim.git'
 
