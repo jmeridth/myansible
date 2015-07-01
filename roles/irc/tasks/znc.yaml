@@ -1,0 +1,60 @@
+---
+- name: install python-software-properties package to ensure add-apt-repository is available
+  sudo: yes                                                                    
+  apt: pkg=python-software-properties state=latest update_cache=yes                              
+
+- name: add znc ppa  #advised from http://wiki.znc.in/Installation#Ubuntu
+  sudo: yes
+  shell: add-apt-repository -y ppa:teward/znc
+
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg={{ item }} state=latest update_cache=yes                              
+  with_items:                                                                  
+    - build-essential
+    - libssl-dev
+    - libperl-dev
+    - pkg-config
+    - libicu-dev
+    - znc
+    - znc-dbg
+    - znc-dev
+    - znc-perl
+    - znc-python
+    - znc-tcl
+
+- name: clean up apt stuff
+  sudo: yes
+  shell: apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
+  tags: clean
+
+- name: Ensure .znc folder exists
+  file:
+    path: ~/.znc/
+    state: directory
+    mode: 0755
+
+- name: Forcibly remove config
+  file:
+    path: ~/.znc/configs/znc.conf
+    state: absent
+  when: znc_force_config_refresh
+
+- name: Check for config
+  stat:
+    path: ~/.znc/configs/znc.conf
+  register: znc_config_stat
+
+- name: Install starting configuration
+  template:
+    src: znc.conf.j2
+    dest: ~/.znc/configs/znc.conf
+  when: znc_config_stat.stat.exists == false
+  notify: restart_znc
+
+- name: Configuration ownership
+  file:
+    path: ~/.znc/configs/znc.conf
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0600

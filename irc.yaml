@@ -1,0 +1,7 @@
+---                                                                                
+- hosts: irc
+  roles:                                                                           
+    - common
+    - common-dev
+    - { role: remote, default_user: jmeridth, default_group: admin, default_ssh_port: 22 }
+    - irc

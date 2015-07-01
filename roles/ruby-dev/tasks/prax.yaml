@@ -1,0 +1,17 @@
+---
+- name: get prax
+  sudo: yes
+  git: repo=git://github.com/ysbaddaden/prax.git
+       dest=/opt/prax accept_hostkey=True
+
+- name: source chruby
+  sudo: yes
+  command: . /usr/local/share/chruby/chruby.sh
+
+- name: change to ruby 2.2.2
+  sudo: yes
+  command: chruby 2.2.2
+
+- name: install prax
+  sudo: yes
+  command: ./bin/prax install chdir="/opt/prax"

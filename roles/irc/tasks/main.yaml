@@ -1,0 +1,9 @@
+---                      
+- include: packages.yaml                                                          
+  tags: packages
+
+- include: znc.yaml
+  tags: znc
+
+- include: weechat.yaml
+  tags: weechat

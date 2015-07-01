@@ -4,6 +4,7 @@
   apt: pkg={{ item }} state=latest update_cache=yes                              
   with_items:                                                                  
     - python-software-properties                                               
+    - python-dev
     - libz-dev                                                                 
     - fontconfig                                                               
     - docker
