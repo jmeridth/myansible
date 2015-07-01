@@ -1,3 +1,4 @@
+EDITOR=vim
 alias update="sudo apt-get update && sudo apt-get upgrade"
 alias newtmux="tmux -S /tmp/pair"
 alias oldtmux="tmux -S /tmp/pair a"
