@@ -12,10 +12,6 @@
     - nodejs-legacy
     - npm
 
-- name: install keybase
-  sudo: yes
-  shell: sudo npm install -g keybase-installer && sudo keybase-installer
-
 - name: clean up apt stuff
   sudo: yes
   action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean

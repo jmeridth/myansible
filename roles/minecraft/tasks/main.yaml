@@ -5,7 +5,7 @@
                                                                                
 - name: setup directory
   file: path=~minecraft owner={{ ansible_ssh_user }}
-        group={{ ansible_ssh_group }} mode=0755 state=directory
+        group={{ ansible_ssh_user }} mode=0755 state=directory
                                                                                
 - name: get minecraft
   command: wget -O minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
