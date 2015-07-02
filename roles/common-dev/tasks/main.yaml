@@ -11,6 +11,9 @@
 - include: bashrc.yaml 
   tags: bashrc
 
+- include: vim.yaml
+  tags: vim
+
 - name: check if desktop
   shell: echo $XDG_CURRENT_DESKTOP
   register: is_desktop

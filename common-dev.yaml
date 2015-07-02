@@ -1,5 +1,5 @@
 ---                                                                                
-- hosts: irc
+- hosts: local
   roles:
     - common
     - common-dev

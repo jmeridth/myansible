@@ -1,7 +1,7 @@
 ---
 - name: setup directories                                                      
   file: path=~/{{ item.path }} owner={{ ansible_ssh_user }}
-        group={{ ansible_ssh_user }} mode=0755 state=directory
+        group={{ ansible_ssh_group }} mode=0755 state=directory
   with_items:                                                                  
     - { path: '.vimswap' }                                                     
     - { path: '.vimbackup' }                                                   
@@ -12,8 +12,9 @@
                                                                                
 - name: setup files                                                            
   copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }}
-        group={{ ansible_ssh_user }} force=yes
+        group={{ ansible_ssh_group }} force=yes
   with_items:                                                                  
     - { name: '.tmux.conf' }                                                   
     - { name: '.gitconfig' }                                                   
     - { name: '.bashjm' }                                                      
+    - { name: '.vimrc' }                                                      

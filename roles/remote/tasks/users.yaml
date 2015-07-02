@@ -1,20 +1,20 @@
 ---
 - name: create default group
   sudo: yes
-  group: name={{ default_group }} state=present
+  group: name={{ ansible_ssh_group }} state=present
 
 - name: remove password prompt for default group
   sudo: yes
-  lineinfile: "dest=/etc/sudoers state=present regexp='^%{{ default_group }}' line='%{{ default_group }} ALL=(ALL) NOPASSWD: ALL'"
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%{{ ansible_ssh_group }}' line='%{{ ansible_ssh_group }} ALL=(ALL) NOPASSWD: ALL'"
 
 - name: create default user
   sudo: yes
-  user: name={{ default_user }} shell=/bin/bash group={{ default_group }}
+  user: name={{ default_user }} shell=/bin/bash group={{ ansible_ssh_group }}
 
 - name: ensure .ssh folder exists
   sudo: yes
   file: path=/home/{{ default_user }}/.ssh state=directory
-        owner={{ default_user }} group={{ default_group }}
+        owner={{ default_user }} group={{ ansible_ssh_group }}
 
 - name: copy public ssh file to authorized_keys
   sudo: yes

@@ -22,3 +22,4 @@ WHITE="\[\e[1;37m\]"
 RESET_COLOR="\[\e[0m\]"
 
 export PS1="$WHITE[\h]${CYAN}[\w]\n\$(__git_ps1 '[%s]')${YELLOW}->\$ ${RESET_COLOR}"
+export ANSIBLE_HOSTS=~/ansible_hosts

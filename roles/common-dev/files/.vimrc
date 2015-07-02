@@ -82,6 +82,10 @@ let g:syntastic_python_checkers=['flake8']
 "" Syntastic ruby
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
 
+"" Syntastic yaml
+let g:syntastic_yaml_checkers=['jsyaml']
+
+
 "" airline
 let g:airline_theme = "wombat"
 let g:airline_powerline_fonts = 1
