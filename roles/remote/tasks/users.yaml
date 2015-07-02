@@ -9,14 +9,14 @@
 
 - name: create default user
   sudo: yes
-  user: name={{ default_user }} shell=/bin/bash group={{ ansible_ssh_user }}
+  user: name={{ ansible_ssh_user }} shell=/bin/bash group={{ ansible_ssh_user }}
 
 - name: ensure .ssh folder exists
   sudo: yes
-  file: path=/home/{{ default_user }}/.ssh state=directory
-        owner={{ default_user }} group={{ ansible_ssh_user }}
+  file: path=/home/{{ ansible_ssh_user }}/.ssh state=directory
+        owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }}
 
 - name: copy public ssh file to authorized_keys
   sudo: yes
-  authorized_key: user={{ default_user }} key="{{ lookup('file', 'id_rsa.pub') }}"
+  authorized_key: user={{ ansible_ssh_user }} key="{{ lookup('file', 'id_rsa.pub') }}"
 
