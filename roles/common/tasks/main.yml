@@ -1,0 +1,28 @@
+---                      
+- name: remove password prompt for sudo
+  sudo: yes
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
+
+- include: packages.yml                                                          
+  tags: packages
+
+- include: git.yml
+  tags: git
+
+- include: filesystem.yml
+  tags: filesystem
+
+- include: bashrc.yml 
+  tags: bashrc
+
+- include: vim.yml
+  tags: vim
+
+- name: check if desktop
+  shell: echo $XDG_CURRENT_DESKTOP
+  register: is_desktop
+  tags: desktop
+
+- include: desktop.yml
+  when: is_desktop.stdout != ''
+  tags: desktop

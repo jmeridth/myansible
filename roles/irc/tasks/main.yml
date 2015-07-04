@@ -1,0 +1,9 @@
+---                      
+- include: packages.yml                                                          
+  tags: packages
+
+- include: znc.yml
+  tags: znc
+
+- include: weechat.yml
+  tags: weechat

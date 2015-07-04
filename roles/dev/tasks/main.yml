@@ -1,0 +1,12 @@
+---                      
+- include: packages.yml                                                          
+  tags: packages
+
+- include: gemrc.yml
+  tags: gemrc
+
+- include: chruby.yml
+  tags: chruby
+      
+- include: ruby-install.yml
+  tags: ruby-install

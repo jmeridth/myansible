@@ -1,0 +1,34 @@
+---
+- name: setup vim colors
+  copy: src='colors/' dest=~/.vim/colors/ owner={{ ansible_ssh_user }}
+        force=yes
+
+- name: get Vundle repository                                                  
+  git: repo=https://github.com/gmarik/Vundle.vim.git                           
+       dest=~/.vim/bundle/Vundle.vim                                           
+                                                                               
+- name: run Vundle                                                             
+  action: shell vim +PluginInstall! +qall
+                                                                               
+- name: delete .vim colors folder
+  file: path=~/.vim/colors/ state=absent
+  tags: vimcolors
+
+# this is much faster than a copy
+- name: move vim colors from vim-colorschemes bundle                           
+  command: mv ~/.vim/bundle/vim-colorschemes/colors ~/.vim/
+  tags: vimcolors
+
+# have to do this or vundle plugin install will bork next time
+- name: put colors folder back in vim-colorschemes bundle
+  shell: git reset --hard
+  args:
+    chdir: ~/.vim/bundle/vim-colorschemes
+  tags: vimcolors
+
+# this takes a LONG time
+# for some reason sudo: yes and sudo_user: {{ ansible_ssh_user }} doesn't work :(
+- name: finish YouCompleteMe compilation
+  shell: sudo ./install.sh --clang-completer
+  args:
+    chdir: ~/.vim/bundle/YouCompleteMe

@@ -1,0 +1,12 @@
+---
+- name: ensure bashrc exists
+  file: path=~/.bashrc state=touch
+
+- name: setup bashrc                                                           
+  lineinfile: dest=~/.bashrc line="source ~/.bashjm"
+
+- name: setup bashrc with ls alias
+  lineinfile: dest=~/.bashrc line='alias ls="ls -lah --color"'
+
+- name: source bashrc
+  shell: . ~/.bashrc

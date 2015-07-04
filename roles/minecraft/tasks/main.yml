@@ -1,0 +1,25 @@
+---                                                                                
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg=default-jdk state=latest update_cache=yes                              
+                                                                               
+- name: setup directory
+  file: path=~minecraft owner={{ ansible_ssh_user }}
+        group={{ ansible_ssh_user }} mode=0755 state=directory
+                                                                               
+- name: get minecraft
+  command: wget -O minecraft_server.jar https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
+
+- name: kill pre-existing minecraft tmux session
+  command: tmux kill-session -t minecraft
+  ignore_errors: yes
+
+- name: start tmux
+  command: tmux new -s minecraft -d
+  args:
+    chdir: "/{{ ansible_ssh_user }}/minecraft"
+
+- name: start minecraft
+  command: tmux send -t minecraft 'java -Xmx1024M -Xms1024M -jar minecraft_server.jar nogui' ENTER
+  args:
+    chdir: "/{{ ansible_ssh_user }}/minecraft"

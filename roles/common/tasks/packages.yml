@@ -1,0 +1,55 @@
+---
+- name: make sure python-apt is installed so ansible can install things
+  sudo: yes
+  apt:
+    name: python-apt-common
+    state: latest
+    update_cache: yes                              
+
+- name: install python-software-properties package to ensure add-apt-repository is available
+  sudo: yes                                                                    
+  apt:
+    name: python-software-properties 
+    state: latest
+    update_cache: yes                              
+
+- name: add git-core ppa                                                       
+  sudo: yes
+  apt_repository:
+    repo: 'ppa:git-core/ppa'
+                                                                               
+- name: add ansible ppa                                                       
+  sudo: yes
+  apt_repository:
+    repo: 'ppa:ansible/ansible'
+
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg={{ item }} state=latest update_cache=yes                              
+  with_items:                                                                  
+    - build-essential
+    - software-properties-common                                               
+    - tmux                                                                     
+    - vim                                                                      
+    - cmake                                                                    
+    - curl                                                                     
+    - wget                                                                     
+    - make
+    - git
+    - ansible
+    - libxml2-dev                                                              
+    - libxslt1-dev                                                             
+    - libffi-dev
+    - python-software-properties                                               
+    - python-dev
+    - libz-dev                                                                 
+    - fontconfig                                                               
+    - docker
+    - nodejs
+    - nodejs-legacy
+    - npm
+
+- name: clean up apt stuff
+  sudo: yes
+  action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
+  tags: clean

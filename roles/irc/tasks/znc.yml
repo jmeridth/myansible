@@ -1,0 +1,72 @@
+---
+- name: Check OS compatibility
+  assert:
+    that:
+      - ansible_distribution in [ 'Ubuntu' ]
+
+- name: Ubuntu specific configuration
+  include: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Asset Ubuntu version compatibility
+  assert:
+    that:
+      - ansible_distribution_version in [ '12.04','14.04','14.10' ]
+
+- name: Configure for ZNC PPA #advised from http://wiki.znc.in/Installation#Ubuntu
+  sudo: yes
+  apt_repository:
+    repo: 'ppa:teward/znc'
+
+- name: Install ZNC
+  sudo: yes
+  apt:
+    name: znc
+
+- name: Create directory tree
+  file:
+    path: "{{ znc_config_dir }}"
+    state: directory
+    owner: {{ ansible_ssh_user }}
+    group: {{ ansible_ssh_user }}
+    mode: 0750
+
+- include: znc_config.yml
+
+- name: open znc port
+  sudo: yes
+  ufw: rule=allow port={{ znc_port }} proto=tcp
+
+- name: Self-signed SSL certificate
+  command: znc --datadir={{ znc_datadir }} --makepem
+  args:
+    creates: "{{ znc_datadir }}/znc.pem"
+  sudo: yes
+  sudo_user: znc
+  notify: restart_znc
+  when: znc_ssl
+
+- name: Forcibly remove config
+  file:
+    path: "{{ znc_datadir }}/configs/znc.conf"
+    state: absent
+  when: znc_force_config_refresh
+
+- name: Check for config
+  stat:
+    path: "{{ znc_datadir }}/configs/znc.conf"
+  register: znc_config_stat
+
+- name: Install starting configuration
+  template:
+    src: znc.conf.j2
+    dest: "{{ znc_datadir }}/configs/znc.conf"
+  when: znc_config_stat.stat.exists == false
+  notify: znc
+
+- name: Configuration ownership
+  file:
+    path: "{{ znc_datadir }}/configs/znc.conf"
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
+    mode: 0600

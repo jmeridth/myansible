@@ -1,0 +1,6 @@
+---                                                                                
+- hosts: web
+  roles:
+    - common
+    - { role: remote, default_ssh_port: 314 }
+    - { role: web }

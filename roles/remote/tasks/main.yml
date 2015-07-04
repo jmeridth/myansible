@@ -1,0 +1,10 @@
+---                                                                                
+- include: users.yml
+  tags: users
+
+- include: ufw.yml
+  tags: ufw
+
+- include: ssh.yml
+  tags: ssh
+

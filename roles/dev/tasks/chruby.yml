@@ -1,0 +1,14 @@
+---
+- name: get chruby repo
+  git: repo=git://github.com/postmodern/chruby.git
+       dest=~/.chruby accept_hostkey=True
+
+- name: install chruby
+  sudo: yes
+  shell: make install chdir="{{ ansible_env.HOME }}/.chruby"
+
+- name: auto switching
+  lineinfile: dest=~/.bashrc line="source /usr/local/share/chruby/chruby.sh"
+
+- name: auto switching part two
+  lineinfile: dest=~/.bashrc line="source /usr/local/share/chruby/auto.sh"

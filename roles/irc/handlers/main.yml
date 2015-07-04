@@ -1,0 +1,6 @@
+---
+  - name: znc
+    service:
+      name: znc
+      state: restarted
+    when: znc_service==true

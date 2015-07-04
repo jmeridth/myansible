@@ -1,0 +1,31 @@
+---
+- name: disable default site
+  sudo: yes                                                           
+  file: path=/etc/nginx/sites-enabled/default state=absent
+      
+- name: make sure website folders exist
+  sudo: yes                                                           
+  file: state=directory path=/var/www/{{ item }}/html
+  with_items: sites
+
+- name: get github website files
+  sudo: yes
+  git: repo=https://github.com/jmeridth/{{ item }}.git
+       dest=/var/www/{{ item }}/html
+  with_items: sites
+
+- name: setup websites
+  sudo: yes
+  copy: src={{ item }} dest=/etc/nginx/sites-available/
+  with_items: sites
+
+- name: enable websites
+  sudo: yes
+  file: src=/etc/nginx/sites-available/{{ item }}
+        dest=/etc/nginx/sites-enabled/{{ item }}
+        owner=root
+        group=root
+        state=link
+  with_items: sites
+  notify:
+  - restart nginx
