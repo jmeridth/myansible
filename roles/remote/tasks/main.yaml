@@ -2,8 +2,8 @@
 - include: users.yaml
   tags: users
 
-- include: iptables.yaml
-  tags: iptables
+- include: ufw.yaml
+  tags: ufw
 
 - include: ssh.yaml
   tags: ssh

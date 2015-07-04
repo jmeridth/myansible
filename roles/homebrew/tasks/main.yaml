@@ -1,0 +1,16 @@
+---
+- name: install homebrew tasks
+  homebrew: name={{ item.name }} install_options={{ item.args }} state=present update_homebrew=yes
+  with_items:
+    - {{ name: chruby, args: HEAD }}
+    - {{ name: ruby-install, args: }}
+    - {{ name: cmake, args: }}
+    - {{ name: coreutils, args: }}
+    - {{ name: python, args: }}
+    - {{ name: macvim, args: with-python, override-system-vim }}
+
+- name: link apps
+  shell: brew link {{ item }}
+  with_items:
+    - macvim
+    - python

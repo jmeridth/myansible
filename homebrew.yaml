@@ -1,6 +1,4 @@
 ---                                                                                
-- hosts: irc
+- hosts: local
   roles:
-    #- common
-    #- common-dev
-    - { role: remote, default_ssh_port: 314 }
+    - homebrew
