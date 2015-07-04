@@ -1,3 +1,0 @@
----
-- name: setup gemrc
-  copy: src=.gemrc dest=~/.gemrc

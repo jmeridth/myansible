@@ -1,7 +1,0 @@
----                                                                                
-- hosts: irc
-  roles:                                                                           
-    - common
-    - common-dev
-    - { role: remote, default_ssh_port: 314 }
-    - irc

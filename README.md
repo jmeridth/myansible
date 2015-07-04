@@ -18,13 +18,13 @@ Example:
 
 How to run:
 
-    ansible-playbook remote.yaml -u [username] -k
+    ansible-playbook remote.yml -u [username] -k
 
 The `-k` will prompt you for the password.  Look at ansible docs for how to avoid doing this.
 
 OR
 
-    ansible-playbook remote.yaml -K
+    ansible-playbook remote.yml -K
 
 if you just want to use the current user to connect and then provide sudo password
 

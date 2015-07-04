@@ -1,5 +1,0 @@
----                                                                                
-- hosts: minecraft
-  roles:                                                                           
-    - common
-    - minecraft

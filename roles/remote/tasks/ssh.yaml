@@ -1,6 +1,0 @@
----
-- name: setup sshd_config
-  sudo: yes
-  template: src=sshd_config.j2 dest=/etc/ssh/sshd_config backup=yes
-  notify:
-  - restart sshd

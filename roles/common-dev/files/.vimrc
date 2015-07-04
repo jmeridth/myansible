@@ -82,8 +82,8 @@ let g:syntastic_python_checkers=['flake8']
 "" Syntastic ruby
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
 
-"" Syntastic yaml
-let g:syntastic_yaml_checkers=['jsyaml']
+"" Syntastic yml
+let g:syntastic_yml_checkers=['jsyml']
 
 
 "" airline
