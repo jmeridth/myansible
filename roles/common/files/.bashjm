@@ -1,5 +1,5 @@
 EDITOR=vim
-alias update="sudo apt-get update && sudo apt-get upgrade"
+alias update="sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y autoremove && sudo apt-get -y autoclean && sudo apt-get -y clean"
 alias newtmux="tmux -S /tmp/pair"
 alias oldtmux="tmux -S /tmp/pair a"
 

@@ -1,0 +1,6 @@
+source /usr/local/share/chruby/chruby.sh
+if [ -e ".ruby-version" ]
+then
+  chruby $(cat .ruby-version)
+fi
+

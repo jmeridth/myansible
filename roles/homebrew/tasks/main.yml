@@ -2,6 +2,7 @@
 - name: install homebrew formulas
   homebrew: name={{ item.name }} install_options={{ item.args }} state=present update_homebrew=yes
   with_items:
+    - { name: pow, args:  }
     - { name: chruby, args: HEAD }
     - { name: ruby-install, args: }
     - { name: cmake, args: }

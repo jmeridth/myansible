@@ -7,7 +7,6 @@
   sudo: yes
   shell: make install chdir="{{ ansible_env.HOME }}/.ruby-install"
 
-- name: install current stable version of Ruby
+- name: install my default ruby
   sudo: yes
-  shell: ruby-install ruby
-  tags: get-latest-ruby
+  shell: ruby-install ruby-2.1.6
