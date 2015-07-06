@@ -1,5 +1,6 @@
 ---
   - name: znc
+    sudo: yes
     service:
       name: znc
       state: restarted

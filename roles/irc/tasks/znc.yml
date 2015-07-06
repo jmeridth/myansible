@@ -4,10 +4,6 @@
     that:
       - ansible_distribution in [ 'Ubuntu' ]
 
-- name: Ubuntu specific configuration
-  include: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-
 - name: Asset Ubuntu version compatibility
   assert:
     that:
@@ -18,32 +14,63 @@
   apt_repository:
     repo: 'ppa:teward/znc'
 
+- name: Configure for ZNC PPA on Ubuntu #advised from http://wiki.znc.in/Installation#Ubuntu
+  sudo: yes
+  apt_repository:
+    repo: 'ppa:teward/swig3.0'
+
 - name: Install ZNC
   sudo: yes
   apt:
-    name: znc
+    name: "{{ item }}"
+    update_cache: yes
+  with_items:
+    - znc
+    - swig3.0
+
+- name: Install upstart script
+  sudo: yes
+  template:
+    src: upstart.j2
+    dest: /etc/init/znc.conf
+    owner: root
+    group: root
+    mode: 0644
+  register: znc_upstart_installed
+  notify: znc
+  when: znc_service
+  
+- name: Remove upstart script
+  sudo: yes
+  file:
+    dest: /etc/init/znc.conf
+    state: absent
+  when: not znc_service
+
+- command: initctl reload-configuration
+  sudo: yes
+  when: znc_upstart_installed|changed
 
 - name: Create directory tree
   file:
     path: "{{ znc_config_dir }}"
     state: directory
-    owner: {{ ansible_ssh_user }}
-    group: {{ ansible_ssh_user }}
+    owner: "{{ ansible_ssh_user }}"
+    group: "{{ ansible_ssh_user }}"
     mode: 0750
-
-- include: znc_config.yml
 
 - name: open znc port
   sudo: yes
   ufw: rule=allow port={{ znc_port }} proto=tcp
 
 - name: Self-signed SSL certificate
+  sudo: yes
   command: znc --datadir={{ znc_datadir }} --makepem
   args:
     creates: "{{ znc_datadir }}/znc.pem"
   sudo: yes
-  sudo_user: znc
-  notify: restart_znc
+  sudo_user: "{{ ansible_ssh_user }}"
+  notify: znc
   when: znc_ssl
 
 - name: Forcibly remove config

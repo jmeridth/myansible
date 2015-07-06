@@ -1,24 +1,17 @@
 ---
-- name: install python-software-properties package to ensure add-apt-repository is available
-  sudo: yes                                                                    
-  apt: pkg=python-software-properties state=latest update_cache=yes                              
-
-- name: add swig3.0 ppa  #advised from http://wiki.znc.in/Installation#Ubuntu
+- name: ppa for latest weechat
   sudo: yes
-  shell: add-apt-repository -y ppa:teward/swig3.0
+  apt_repository:
+    repo: 'ppa:nesthib/weechat-stable'
 
-- name: install packages                                                       
-  sudo: yes                                                                    
-  apt: pkg={{ item }} state=latest update_cache=yes                              
-  with_items:                                                                  
-    - build-essential
-    - libssl-dev
-    - libperl-dev
-    - pkg-config
-    - swig3.0
-    - libicu-dev
-
-- name: clean up apt stuff
+- name: install weechat
   sudo: yes
-  action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
-  tags: clean
+  apt:
+    name: weechat
+    update_cache: yes
+
+  # synchronize much faster than copy
+  # (as copy does each file at a time)
+- name: setup .weechat directory
+  synchronize: src=.weechat dest=~/
+  tags: weechatdir

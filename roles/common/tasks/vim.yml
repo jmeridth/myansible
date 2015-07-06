@@ -26,9 +26,12 @@
     chdir: ~/.vim/bundle/vim-colorschemes
   tags: vimcolors
 
-# this takes a LONG time
-# for some reason sudo: yes and sudo_user: {{ ansible_ssh_user }} doesn't work :(
+# this can take a bit
+# ignoring errors in case it runs out of memory to complete (happens on AWS tiny instances)
+# aka "virtual memory exhausted: Cannot allocate memory"
 - name: finish YouCompleteMe compilation
-  shell: sudo ./install.sh --clang-completer
+  sudo: yes
+  shell: ./install.sh --clang-completer
   args:
     chdir: ~/.vim/bundle/YouCompleteMe
+  ignore_errors: yes

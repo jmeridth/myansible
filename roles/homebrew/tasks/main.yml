@@ -11,6 +11,8 @@
     - { name: macvim, args: with-python, override-system-vim }
     - { name: caskroom/cask/brew-cask, args: }
     - { name: dynamodb-local, args: }
+    - { name: homebrew/versions/phantomjs198, args: }
+    - { name: imagemagick, args: }
 
 - name: install homebrew casks
   homebrew_cask: name={{ item }} state=present
