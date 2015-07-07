@@ -23,8 +23,8 @@ bind_address = ""
 compression_level = 6
 ipv6 = on
 max_clients = 5
-password = "admin"
-ssl_cert_key = "%h/ssl/relay.pem"
+password = {{ weechat_network_password }}
+ssl_cert_key = {{ weechat_ssl_file }}
 websocket_allowed_origins = ""
 
 [irc]
@@ -35,4 +35,4 @@ backlog_tags = "irc_privmsg"
 backlog_time_format = "[%H:%M] "
 
 [port]
-weechat = 8001
+weechat = {{ weechat_relay_port }}

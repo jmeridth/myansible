@@ -8,6 +8,20 @@
 // But if you feel risky, you might want to read help on /znc saveconfig and /znc rehash.
 // Also check http://en.znc.in/wiki/Configuration
 
+AnonIPLimit = 10
+ConnectDelay = 5
+HideVersion = false
+LoadModule = partyline
+LoadModule = webadmin
+LoadModule = adminlog
+LoadModule = identfile
+LoadModule = log
+MaxBufferSize = 500
+ProtectWebSessions = true
+SSLCertFile = {{ znc_config_dir }}
+ServerThrottle = 30
+Skin = _default_
+StatusPrefix = *
 Version = 1.6.0
 <Listener l>
   Port = {{ znc_port }}
@@ -15,8 +29,6 @@ Version = 1.6.0
   IPv6 = {{ 'true' if znc_ipv6 else 'false' }}
   SSL = {{ 'true' if znc_ssl else 'false' }}
 </Listener>
-LoadModule = partyline
-LoadModule = webadmin
 
 <User {{ znc_user_name }}>
   Pass       = {{ znc_user_password }}
