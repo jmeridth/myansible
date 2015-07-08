@@ -27,6 +27,9 @@ Plugin 'vim-ruby/vim-ruby.git'
 """ markdown plugins
 Plugin 'plasticboy/vim-markdown.git'
 
+""" coffeescript plugins
+Plugin 'kchmck/vim-coffee-script.git'
+
 """ fonts and color plugins
 Plugin 'bling/vim-airline.git'
 Plugin 'flazz/vim-colorschemes.git'
@@ -81,6 +84,9 @@ let g:syntastic_python_checkers=['flake8']
 
 "" Syntastic ruby
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
+
+"" CoffeeScript ruby
+let g:syntastic_cofee_checkers=['coffee', 'coffeelint']
 
 "" Syntastic yml
 let g:syntastic_yml_checkers=['jsyml']
