@@ -18,3 +18,5 @@
     - { name: '.gitconfig' }                                                   
     - { name: '.bashjm' }                                                      
     - { name: '.vimrc' }                                                      
+    - { name: '.eslintrc' }                                                      
+    - { name: '.powconfig' }                                                      

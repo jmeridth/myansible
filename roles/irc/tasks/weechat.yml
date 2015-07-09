@@ -10,8 +10,6 @@
     name: weechat
     update_cache: yes
 
-  # synchronize much faster than copy
-  # (as copy does each file at a time)
 - name: setup .weechat directory
   synchronize: src="{{ weechat_datadir }}" dest=~/
 

@@ -12,6 +12,12 @@ Plugin 'scrooloose/syntastic.git'
 "" http://valloric.github.io/YouCompleteMe/
 Plugin 'Valloric/YouCompleteMe.git'
 
+""" snippets
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+
 """ git plugins
 Plugin 'tpope/vim-fugitive.git'
 
@@ -24,10 +30,14 @@ Plugin 'nvie/vim-flake8.git'
 """ ruby plugins
 Plugin 'vim-ruby/vim-ruby.git'
 
+""" react.js plugins
+Plugin 'mxw/vim-jsx'
+Plugin 'justinj/vim-react-snippets'
+
 """ markdown plugins
 Plugin 'plasticboy/vim-markdown.git'
 
-""" coffeescript plugins
+""" coffeescriptplugins
 Plugin 'kchmck/vim-coffee-script.git'
 
 """ fonts and color plugins
@@ -88,9 +98,12 @@ let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
 "" CoffeeScript ruby
 let g:syntastic_cofee_checkers=['coffee', 'coffeelint']
 
-"" Syntastic yml
-let g:syntastic_yml_checkers=['jsyml']
+"" Syntastic yaml
+let g:syntastic_yaml_checkers=['jsyaml']
 
+"" Syntastic react.js
+let g:jsx_ext_required = 0 " Allow JSX in normal JS files
+let g:Syntastic_javascript_checkers = ['eslint']
 
 "" airline
 let g:airline_theme = "wombat"
