@@ -6,6 +6,9 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
+Plugin 'scrooloose/nerdtree.git'
+""" Plugin 'Xuyuanp/nerdtree-git-plugin'
+
 """ syntax plugins
 Plugin 'scrooloose/syntastic.git'
 "" There is a compile portion for YouCompleteMe
@@ -29,6 +32,9 @@ Plugin 'nvie/vim-flake8.git'
 
 """ ruby plugins
 Plugin 'vim-ruby/vim-ruby.git'
+
+""" javascript plugins
+Plugin 'pangloss/vim-javascript'
 
 """ react.js plugins
 Plugin 'mxw/vim-jsx'
@@ -55,6 +61,10 @@ map <c-k> <c-w>k
 map <c-l> <c-w>l
 map <c-h> <c-w>h
 
+"" NERDTree
+map <C-n> :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 "" Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
@@ -71,7 +81,9 @@ set expandtab
 set smarttab
 autocmd Filetype html setlocal ts=2 sts=2 sw=2
 autocmd Filetype ruby setlocal ts=2 sts=2 sw=2
+autocmd Filetype eruby setlocal ts=2 sts=2 sw=2
 autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
+autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal ts=4 sts=4 sw=4 colorcolumn=80
 
 "" always show statusline
@@ -139,6 +151,9 @@ set mat=2
 "" disable error bells
 set noerrorbells
 set novisualbell
+
+"" disable code folding
+set nofoldenable
 
 "" enable code folding
 "" set foldmethod=indent
