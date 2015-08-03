@@ -35,6 +35,7 @@ Plugin 'vim-ruby/vim-ruby.git'
 
 """ javascript plugins
 Plugin 'pangloss/vim-javascript'
+Plugin 'walm/jshint.vim.git'
 
 """ react.js plugins
 Plugin 'mxw/vim-jsx'
@@ -106,6 +107,7 @@ let g:syntastic_python_checkers=['flake8']
 
 "" Syntastic ruby
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
+let g:syntastic_ruby_rubocop_exec='~/.vim/rubocop.sh'
 
 "" CoffeeScript ruby
 let g:syntastic_cofee_checkers=['coffee', 'coffeelint']
@@ -115,7 +117,7 @@ let g:syntastic_yaml_checkers=['jsyaml']
 
 "" Syntastic react.js
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
-let g:Syntastic_javascript_checkers = ['eslint']
+let g:Syntastic_javascript_checkers = ['eslint', 'jshint']
 
 "" airline
 let g:airline_theme = "wombat"

@@ -34,3 +34,7 @@
 	autocrlf = false
 [url "https://"]
 	insteadof = git://
+[git-up "bundler"]
+	check = true
+[remote]
+	pushdefault = origin

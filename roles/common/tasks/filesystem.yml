@@ -20,3 +20,7 @@
     - { name: '.vimrc' }                                                      
     - { name: '.eslintrc' }                                                      
     - { name: '.powconfig' }                                                      
+
+- name: setup rubocop.sh file                                                            
+  copy: src=rubocop.sh dest=~/.vim/rubocop.sh owner={{ ansible_ssh_user }}
+        group={{ ansible_ssh_user }} force=yes
