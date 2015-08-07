@@ -1,0 +1,3 @@
+# vim:ft=yaml
+---
+default_dev_folder_path: ~/dev

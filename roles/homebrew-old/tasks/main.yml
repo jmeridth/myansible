@@ -6,6 +6,7 @@
     - { name: chruby, args: HEAD }
     - { name: ruby-install, args: }
     - { name: cmake, args: }
+    - { name: watch, args: }
     - { name: coreutils, args: }
     - { name: python, args: }
     - { name: macvim, args: with-python, override-system-vim }
@@ -18,6 +19,8 @@
   homebrew_cask: name={{ item }} state=present
   with_items:
     - launchrocket
+    - chrome
+    - packer
 
 - name: link apps
   shell: brew link {{ item }}
