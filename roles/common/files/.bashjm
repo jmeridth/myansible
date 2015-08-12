@@ -7,6 +7,8 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+alias be="bundle exec"
+
 BLACK="\[\e[0;30m\]"
 DGRAY="\[\e[1;30m\]"
 BLUE="\[\e[0;34m\]"

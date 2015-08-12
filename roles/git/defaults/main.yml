@@ -1,2 +1,36 @@
 # vim:ft=yaml
 ---
+build_packages:
+  MacOSX:
+    - cmake
+    - coreutils
+    - caskroom/cask/brew-cask
+    - dynamodb-local
+    - homebrew/versions/phantomjs198
+    - imagemagick
+    - pow
+    - ruby-install
+    - watch
+
+  Ubuntu:
+    - ansible
+    - build-essential
+    - cmake                                                                    
+    - curl                                                                     
+    - docker
+    - fontconfig                                                               
+    - git
+    - libxml2-dev                                                              
+    - libxslt1-dev                                                             
+    - libffi-dev
+    - libz-dev                                                                 
+    - make
+    - nodejs
+    - nodejs-legacy
+    - npm
+    - python-dev
+    - python-software-properties                                               
+    - software-properties-common                                               
+    - tmux                                                                     
+    - vim                                                                      
+    - wget                                                                     

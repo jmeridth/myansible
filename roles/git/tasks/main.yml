@@ -1,15 +1,35 @@
 # vim:ft=yaml
 ---
+
+- name: install python-software-properties package to ensure add-apt-repository is available
+  sudo: yes                                                                    
+  apt:
+    name: python-software-properties 
+    state: latest
+    update_cache: yes                              
+  when: when: ansible_os_family == 'Debian'
+
+- name: add git-core ppa                                                       
+  sudo: yes
+  apt_repository:
+    repo: 'ppa:git-core/ppa'
+  when: when: ansible_os_family == 'Debian'
+
+- name: Install packages
+  action: "{{ ansible_pkg_mgr }} state=installed name={{ item }}"
+  with_items: build_packages[ansible_distribution]
+  sudo: true
+
 - name: get git repo                                                           
   git: repo=git://github.com/git/git.git                           
-       dest={ default_dev_path }/git accept_hostkey=True
+       dest={{ default_dev_path }}/git accept_hostkey=True
                                                                                
 - name: setup git completion                                                   
-  copy: src={ default_dev_path }/git/contrib/completion/git-completion.bash
+  copy: src={{ default_dev_path }}/git/contrib/completion/git-completion.bash
         dest=~/.git-completion.bash owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
                                                                                
 - name: setup git prompts                                                   
-  copy: src={ default_dev_path }/git/contrib/completion/git-prompt.sh
+  copy: src={{ default_dev_path }}/git/contrib/completion/git-prompt.sh
         dest=~/.git-prompt.sh owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
 
 - name: setup bashrc with git completion

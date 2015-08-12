@@ -9,4 +9,4 @@
 
 - name: install my default ruby
   sudo: yes
-  shell: ruby-install ruby-2.1.6
+  shell: ruby-install ruby 2.1.6

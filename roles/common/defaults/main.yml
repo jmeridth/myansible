@@ -1,3 +1,53 @@
+# vim:ft=yaml
 ---
-host_key_checking: False
-nocows: 1
+build_packages:
+  MacOSX:
+    - pow
+    - caskroom/cask/brew-cask
+    - ruby-install
+    - cmake
+    - watch
+    - coreutils
+    - dynamodb-local
+    - homebrew/versions/phantomjs198
+    - imagemagick
+
+  Ubuntu:
+    - autoconf
+    - automake
+    - autopoint
+    - bison
+    - build-essential
+    - clang
+    - cppcheck
+    - devscripts
+    - diffuse
+    - exuberant-ctags
+    - flex
+    - gdb 
+    - gettext 
+    - gnupg-agent
+    - gperf
+    - libboost-all-dev
+    - libcurl4-openssl-dev
+    - libevent-dev
+    - libpam0g-dev
+    - libpcre3-dev
+    - libprotobuf-dev
+    - libreadline-dev
+    - libsnack2
+    - libsnack2-dev 
+    - libsqlite3-0
+    - libsqlite3-dev
+    - libssl-dev
+    - libtokyocabinet-dev
+    - libtokyocabinet9
+    - libtool
+    - llvm
+    - llvm-dev
+    - maven 
+    - protobuf-compiler
+    - sqlite3
+    - uuid-dev
+    - valgrind
+    - vim

@@ -14,13 +14,18 @@
     - { name: dynamodb-local, args: }
     - { name: homebrew/versions/phantomjs198, args: }
     - { name: imagemagick, args: }
+    - { name: lastpass-cli, args: }
+    - { name: terraform, args: }
 
 - name: install homebrew casks
   homebrew_cask: name={{ item }} state=present
   with_items:
     - launchrocket
-    - chrome
+    - google-chrome
     - packer
+    - appzapper
+    - dropbox
+    - skype
 
 - name: link apps
   shell: brew link {{ item }}

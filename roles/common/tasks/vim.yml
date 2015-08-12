@@ -1,12 +1,12 @@
 ---
-- name: install packages
-  sudo: yes
-  apt: pkg={{ item }} state=latest update_cache=yes
-  with_items:
-    - nodejs
-    - nodejs-legacy
-    - npm
-  tags: vimvpm
+#- name: install packages
+#  sudo: yes
+#  apt: pkg={{ item }} state=latest update_cache=yes
+#  with_items:
+#    - nodejs
+#    - nodejs-legacy
+#    - npm
+#  tags: vimvpm
 
 - name: install react.js npm modules
   npm: name={{ item }} global=yes

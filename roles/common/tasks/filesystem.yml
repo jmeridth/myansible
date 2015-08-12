@@ -1,7 +1,6 @@
 ---
 - name: setup directories                                                      
-  file: path=~/{{ item.path }} owner={{ ansible_ssh_user }}
-        group={{ ansible_ssh_user }} mode=0755 state=directory
+  file: path=~/{{ item.path }} owner={{ ansible_ssh_user }} mode=0755 state=directory
   with_items:                                                                  
     - { path: '.vimswap' }                                                     
     - { path: '.vimbackup' }                                                   
@@ -11,8 +10,7 @@
     - { path: 'dev' }                                                          
                                                                                
 - name: setup files                                                            
-  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }}
-        group={{ ansible_ssh_user }} force=yes
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }} force=yes
   with_items:                                                                  
     - { name: '.tmux.conf' }                                                   
     - { name: '.gitconfig' }                                                   
@@ -23,5 +21,4 @@
     - { name: '.pryrc' }
 
 - name: setup rubocop.sh file                                                            
-  copy: src=rubocop.sh dest=~/.vim/rubocop.sh owner={{ ansible_ssh_user }}
-        group={{ ansible_ssh_user }} force=yes
+  copy: src=rubocop.sh dest=~/.vim/rubocop.sh owner={{ ansible_ssh_user }} force=yes
