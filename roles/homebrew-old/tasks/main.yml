@@ -26,6 +26,8 @@
     - appzapper
     - dropbox
     - skype
+    - seil
+    - firefox
 
 - name: link apps
   shell: brew link {{ item }}
