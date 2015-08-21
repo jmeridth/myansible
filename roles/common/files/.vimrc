@@ -2,11 +2,13 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+let mapleader=","
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
 """ Plugin 'Xuyuanp/nerdtree-git-plugin'
 """ syntax plugins
 Plugin 'scrooloose/syntastic.git'
+Plugin 'scrooloose/nerdcommenter.git'
 "" There is a compile portion for YouCompleteMe
 "" http://valloric.github.io/YouCompleteMe/
 Plugin 'Valloric/YouCompleteMe.git'
@@ -51,8 +53,10 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 ""Vertical split then hop to new buffer
-:noremap ,v <c-w>v<cr>
-:noremap ,h <c-w>s<cr>
+:noremap <Leader>v <c-w>v<cr>
+:noremap <Leader>h <c-w>s<cr>
+""reset split
+:noremap <Leader>= <c-w>=<cr>
 "" set color depth
 set term=xterm-256color
 "" space not tab
@@ -79,7 +83,7 @@ let g:syntastic_python_flake8_args = "--builtins=_"
 let g:syntastic_python_checkers=['flake8']
 "" Syntastic ruby
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
-let g:syntastic_ruby_rubocop_exec='~/.vim/rubocop.sh'
+let g:syntastic_ruby_rubocop_exec='~/.rubocop.sh'
 "" CoffeeScript ruby
 let g:syntastic_cofee_checkers=['coffee', 'coffeelint']
 "" Syntastic yaml
@@ -95,34 +99,44 @@ let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 filetype indent plugin on
 syntax on                         " syntax coloring on
 set cursorline                    " hightlight current line
-set ai                            " autoindent
-set si                            " smartindent
-set ignorecase                    " Ignore case on search
-set ttyfast                       " Optimize for fast terminal connections
-set binary                        " Don't add empty newlines at the end of files
-set noeol                         "
-set showcmd                       " Display incomplete commands.
-set showmode                      " Display the mode you're in.
-set hidden                              
-"" Better Completion
-set complete=.,b,u,]
-set completeopt=menu,preview
-set wildmenu                      " Enhanced command line completion.
-set wildmode=longest,list:longest " Complete files like a shell.
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,*.jpg,*.jpeg,*.png,*.gif,vendor/**,db/sphinx,log/**,tmp/**,public/uploads,coverage/**
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set wildignore+=vendor/gems/*,vendor/ruby/*,node_modules/*,coverage/*
-set hlsearch                      " highlight search results
-set showmatch                     " show matching brackets
-set mat=2                         " and blink for 2 seconds
+set cursorline
+
+"" autoindent
+set ai
+
+"" smartindent
+set si
+
+"" ignore case on search
+set ignorecase
+
+"" highlight search results
+set hlsearch
+
+"" show matching brackets
+set showmatch
+"" and blink for 2 seconds
+set mat=2
+
 "" disable error bells
 set noerrorbells
 set novisualbell
-set nofoldenable                  " disable code folding
-set number                        " show line numbers
-set nobackup                      " No backups.
-set nowritebackup                 " No backups.
-set noswapfile                    " No swap files; more hassle than they're worth.
+
+"" disable code folding
+set nofoldenable
+
+"" enable code folding
+"" set foldmethod=indent
+"" nnoremap <space> za
+"" vnoremap <space> zf
+
+"" show line numbers
+set number
+
+"" use central directories
+set directory=~/.vimswap//
+set backupdir=~/.vimbackup//
+
 "" colors
 set background=dark
 colorscheme vividchalk
