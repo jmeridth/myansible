@@ -5,6 +5,7 @@ call vundle#begin()
 let mapleader=","
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
+Plugin 'kien/ctrlp.vim.git'
 """ Plugin 'Xuyuanp/nerdtree-git-plugin'
 """ syntax plugins
 Plugin 'scrooloose/syntastic.git'
@@ -40,6 +41,8 @@ Plugin 'kchmck/vim-coffee-script.git'
 Plugin 'bling/vim-airline.git'
 Plugin 'flazz/vim-colorschemes.git'
 Plugin 'altercation/vim-colors-solarized.git'
+""" formatting
+Plugin 'godlygeek/tabular.git'
 call vundle#end()
 "" Some new configurations
 map <c-j> <c-w>j
@@ -55,6 +58,17 @@ set whichwrap+=<,>,h,l
 ""Vertical split then hop to new buffer
 :noremap <Leader>v <c-w>v<cr>
 :noremap <Leader>h <c-w>s<cr>
+"" Tabular
+nmap <Leader>t= :Tabularize /=<CR>
+vmap <Leader>t= :Tabularize /=<CR>
+nmap <Leader>t{ :Tabularize /{<CR>
+vmap <Leader>t{ :Tabularize /{<CR>
+nmap <Leader>t=> :Tabularize /=><CR>
+vmap <Leader>t=> :Tabularize /=><CR>
+nmap <Leader>t: :Tabularize /:\zs<CR>
+vmap <Leader>t: :Tabularize /:\zs<CR>
+nmap <Leader>t, :Tabularize /,\zs<CR>
+vmap <Leader>t, :Tabularize /,\zs<CR>
 ""reset split
 :noremap <Leader>= <c-w>=<cr>
 "" set color depth
@@ -69,6 +83,15 @@ autocmd Filetype javascript setlocal ts=4 sts=4 sw=4
 autocmd Filetype coffee setlocal ts=2 sts=2 sw=2
 autocmd Filetype python setlocal ts=4 sts=4 sw=4 colorcolumn=80
 set laststatus=2                  " always show status line
+""
+" NERDCommenter
+let NERDDefaultNesting = 0
+let NERDSpaceDelims = 1
+let NERDRemoveExtraSpaces = 1
+"" ctrlp
+let g:ctrlp_custom_ignore = 'vendor/ruby/\|node_modules/\|tmp/|coverage/'
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_use_caching = 1
 "" Syntastic
 "" from https://github.com/scrooloose/syntastic#3-recommended-settings
 set statusline+=%#warningmsg#
@@ -85,7 +108,8 @@ let g:syntastic_python_checkers=['flake8']
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
 let g:syntastic_ruby_rubocop_exec='~/.rubocop.sh'
 "" CoffeeScript ruby
-let g:syntastic_cofee_checkers=['coffee', 'coffeelint']
+let g:syntastic_coffee_checkers=['coffee', 'coffeelint']
+let g:syntastic_coffee_coffeelint_args = "-f ~/.coffeelint"
 "" Syntastic yaml
 let g:syntastic_yaml_checkers=['jsyaml']
 "" Syntastic react.js
@@ -133,9 +157,12 @@ set nofoldenable
 "" show line numbers
 set number
 
-"" use central directories
-set directory=~/.vimswap//
-set backupdir=~/.vimbackup//
+"" No backups
+set nobackup
+set nowritebackup
+
+"" No swap files; more hassle then they're worth
+set noswapfile
 
 "" colors
 set background=dark
