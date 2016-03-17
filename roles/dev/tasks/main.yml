@@ -1,9 +1,0 @@
----                      
-#- include: packages.yml                                                          
-#  tags: packages
-
-- include: gemrc.yml
-  tags: gemrc
-
-- include: rvm.yml
-  tags: rvm

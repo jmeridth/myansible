@@ -1,0 +1,24 @@
+---
+- name: Check if homebrew is installed
+  command: which brew
+  register: homebrew_check
+  ignore_errors: true
+  when: ansible_os_family == 'Darwin'
+
+- name: Install homebrew if not installed
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
+
+- name: install tmux via homebrew
+  homebrew: name=tmux state=present
+  when: ansible_os_family == 'Darwin'
+
+- name: install packages                                                       
+  sudo: yes                                                                    
+  apt: pkg=tmux state=latest update_cache=yes                              
+  when: ansible_os_family == 'Debian'
+
+- name: setup files                                                            
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }} force=yes
+  with_items:                                                                  
+    - { name: '.tmux.conf' }                                                      

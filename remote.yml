@@ -1,5 +1,5 @@
 ---                                                                                
-- hosts: irc
+- hosts: remote
   roles:
-    - common
+    - packages
     - { role: remote, default_ssh_port: 314 }

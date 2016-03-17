@@ -1,0 +1,11 @@
+---
+- name: get pip installation file
+  get_url: url=https://bootstrap.pypa.io/get-pip.py dest=~/ validate_certs=no
+
+# for some reason sudo: yes and sudo_user: {{ ansible_ssh_user }} doesn't work :(
+- name: install pip
+  shell: sudo python ~/get-pip.py
+
+- name: install python modules
+  sudo: yes
+  action: shell pip install virtualenv tox virtualenvwrapper

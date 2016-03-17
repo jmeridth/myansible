@@ -1,5 +1,12 @@
 # vim:ft=yaml
 ---
+- name: install homebrew
+  shell: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+  when: ansible_os_family == 'Darwin'
+
+- name: install homebrew formulas
+  homebrew: name=git state=present update_homebrew=yes
+  when: ansible_os_family == 'Darwin'
 
 - name: install python-software-properties package to ensure add-apt-repository is available
   sudo: yes                                                                    
@@ -7,13 +14,13 @@
     name: python-software-properties 
     state: latest
     update_cache: yes                              
-  when: when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: add git-core ppa                                                       
   sudo: yes
   apt_repository:
     repo: 'ppa:git-core/ppa'
-  when: when: ansible_os_family == 'Debian'
+  when: ansible_os_family == 'Debian'
 
 - name: Install packages
   action: "{{ ansible_pkg_mgr }} state=installed name={{ item }}"

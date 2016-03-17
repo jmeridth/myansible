@@ -1,0 +1,11 @@
+---                      
+- include: gemrc.yml
+  tags: gemrc
+
+- include: rvm.yml
+  tags: rvm
+
+- name: setup files                                                            
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }} force=yes
+  with_items:                                                                  
+    - { name: 'rubocop.sh' }                                                      

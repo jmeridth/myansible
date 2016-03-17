@@ -1,2 +1,5 @@
 # vim:ft=yaml
 ---
+- name: change shell to zsh
+  shell: chsh -s $(which zsh)
+
