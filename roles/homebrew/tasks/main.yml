@@ -3,26 +3,22 @@
   homebrew: name={{ item.name }} install_options={{ item.args }} state=present update_homebrew=yes
   with_items:
     - { name: pow, args:  }
-    - { name: chruby, args: HEAD }
-    - { name: ruby-install, args: }
     - { name: cmake, args: }
     - { name: watch, args: }
     - { name: coreutils, args: }
     - { name: python, args: }
-    - { name: macvim, args: with-python, override-system-vim }
+    - { name: macvim, args: with-python, with-override-system-vim }
     - { name: caskroom/cask/brew-cask, args: }
     - { name: dynamodb-local, args: }
-    - { name: homebrew/versions/phantomjs198, args: }
     - { name: imagemagick, args: }
-    - { name: lastpass-cli, args: }
-    - { name: terraform, args: }
+    - { name: tree, args: }
 
 - name: install homebrew casks
   homebrew_cask: name={{ item }} state=present
   with_items:
+    - slack
     - launchrocket
     - google-chrome
-    - packer
     - appzapper
     - dropbox
     - skype

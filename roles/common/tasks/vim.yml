@@ -41,7 +41,7 @@
 # maybe check if there is a swap and only install if there is one >= 1GB
 - name: finish YouCompleteMe compilation
   sudo: yes
-  shell: ./install.sh --clang-completer
+  shell: ./install.py --clang-completer
   args:
     chdir: ~/.vim/bundle/YouCompleteMe
   ignore_errors: yes

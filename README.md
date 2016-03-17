@@ -1,8 +1,6 @@
 My personal ansible scripts, building as I have free time
 
-Make sure you have hosts populated in /etc/ansible/hosts
-
-Example:
+To get your hosts setup, you need to have hosts populated in /etc/ansible/hosts like so:
 
     [web]
     345.43.24.218
@@ -15,6 +13,12 @@ Example:
 
     [local]
     localhost  ansible_connection=local
+
+or you can use the default hosts file I have in this repo by sourcing the `.setup_env` file to just run locally.
+
+    `source .setup_env`
+
+It will set the `ANSIBLE_HOSTS` environment variable and point it to this repo's `hosts` file.
 
 How to run:
 
