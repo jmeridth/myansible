@@ -6,6 +6,10 @@
   tags: rvm
 
 - name: setup files                                                            
-  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_ssh_user }} force=yes
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user_id }} force=yes
   with_items:                                                                  
-    - { name: 'rubocop.sh' }                                                      
+    - { name: '.pryrc' }                                                      
+    - { name: '.powrc' }                                                      
+
+- name: setup rubocop.sh file                                                            
+  copy: src=rubocop.sh dest=~/.vim/rubocop.sh owner={{ ansible_user_id }} force=yes

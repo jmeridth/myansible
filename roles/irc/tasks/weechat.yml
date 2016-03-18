@@ -45,7 +45,7 @@
   command: openssl req -nodes -newkey rsa:2048 -keyout relay.pem -x509 -days 365 -subj '/C=US/ST=TX/O=Meridth LLC/CN=irc.jasonmeridth.com' -out relay.pem
   args:
     chdir: "{{ weechat_ssldir }}"
-  sudo_user: "{{ ansible_ssh_user }}"
+  sudo_user: "{{ ansible_user_id }}"
   when: weechat_relay_ssl
   tags: weechatrelay
 

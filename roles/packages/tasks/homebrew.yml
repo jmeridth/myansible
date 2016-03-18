@@ -1,67 +1,67 @@
 ---
-# - name: Check if homebrew is installed
-#   command: which brew
-#   register: homebrew_check
-#   ignore_errors: true
-# 
-# - name: Install homebrew if not installed
-#   shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-#   when: homebrew_check.rc == 1
-# 
-# - name : tap homebrew cask
-#   homebrew_tap: tap=caskroom/cask state=present
-# 
-# - name: install homebrew formulas
-#   homebrew: name={{ item }} state=present update_homebrew=yes
-#   with_items:
-#     - ag
-#     - ansible
-#     - cmake
-#     - coreutils
-#     - docker
-#     - docker-machine
-#     - git
-#     - go
-#     - httpie
-#     - imagemagick
-#     - libyaml
-#     - node
-#     - pow
-#     - tmux
-#     - tree
-#     - watch
-#     - wget
-#     - zsh
-#     - zsh-completions
-# 
-# - name: install homebrew casks
-#   homebrew_cask: name={{ item }} state=present
-#   with_items:
-#     - appzapper
-#     - dropbox
-#     - evernote
-#     - firefox
-#     - gitter
-#     - google-chrome
-#     - google-drive
-#     - iterm2
-#     - launchrocket
-#     - ngrok
-#     - seil
-#     - skype
-#     - slack
-#     - spotify
-#     - textual
-#     - virtualbox
-# 
-# - name: uninstall python and macvim forumla
-#   homebrew: name=python,macvim state=absent
-# 
-# - name: install python formula
-#   homebrew: name=python state=present update_homebrew=yes
-# 
-# - name: link python formula
-#   shell: brew link python
+- name: Check if homebrew is installed
+  command: which brew
+  register: homebrew_check
+  ignore_errors: true
+
+- name: Install homebrew if not installed
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: homebrew_check.rc == 1
+
+- name : tap homebrew cask
+  homebrew_tap: tap=caskroom/cask state=present
+
+- name: install homebrew formulas
+  homebrew: name={{ item }} state=present update_homebrew=yes
+  with_items:
+    - ag
+    - ansible
+    - cmake
+    - coreutils
+    - docker
+    - docker-machine
+    - git
+    - go
+    - httpie
+    - imagemagick
+    - libyaml
+    - node
+    - pow
+    - tmux
+    - tree
+    - watch
+    - wget
+    - zsh
+    - zsh-completions
+
+- name: install homebrew casks
+  homebrew_cask: name={{ item }} state=present
+  with_items:
+    - appzapper
+    - dropbox
+    - evernote
+    - firefox
+    - gitter
+    - google-chrome
+    - google-drive
+    - iterm2
+    - launchrocket
+    - ngrok
+    - seil
+    - skype
+    - slack
+    - spotify
+    - textual
+    - virtualbox
+
+- name: uninstall python and macvim forumla
+  homebrew: name=python,macvim state=absent
+
+- name: install python formula
+  homebrew: name=python state=present update_homebrew=yes
+
+- name: link python formula
+  shell: brew link python
 
 - name: Check if xcode is installed
   command: ls /Applications/Xcode.app

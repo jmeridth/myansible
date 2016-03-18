@@ -9,7 +9,7 @@ To get your hosts setup, you need to have hosts populated in /etc/ansible/hosts 
     123.23.23.25
 
     [ec2]
-    133.3.24.5 ansible_ssh_private_key_file=/home/my_username/.ssh/my_aws.pem ansible_ssh_user=ubuntu
+    133.3.24.5 ansible_ssh_private_key_file=/home/my_username/.ssh/my_aws.pem ansible_user_id=ubuntu
 
     [local]
     localhost  ansible_connection=local

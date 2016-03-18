@@ -1,0 +1,19 @@
+---
+- name: Check if homebrew is installed
+  command: which brew
+  register: homebrew_check
+  ignore_errors: true
+  when: ansible_os_family == 'Darwin'
+
+- name: Install homebrew if not installed
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
+
+- name: install zsh for homebrew
+  homebrew: name=zsh state=present update_homebrew=yes
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
+
+- name: add zsh to /etc/shells when homebrew
+  shell: echo $(which zsh) >> /etc/shells
+  sudo: yes
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1

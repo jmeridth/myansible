@@ -1,0 +1,5 @@
+---
+- name: install zsh for ubuntu                                                       
+  sudo: yes                                                                    
+  apt: pkg=zsh state=latest update_cache=yes                              
+  when: ansible_os_family == 'Darwin'

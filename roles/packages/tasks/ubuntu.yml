@@ -48,6 +48,7 @@
     - nodejs
     - nodejs-legacy
     - npm
+    - zsh
 
 - name: clean up apt stuff
   sudo: yes

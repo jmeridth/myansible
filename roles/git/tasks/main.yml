@@ -33,11 +33,14 @@
                                                                                
 - name: setup git completion                                                   
   copy: src={{ default_dev_path }}/git/contrib/completion/git-completion.bash
-        dest=~/.git-completion.bash owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
+        dest=~/.git-completion.bash owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0755
                                                                                
 - name: setup git prompts                                                   
   copy: src={{ default_dev_path }}/git/contrib/completion/git-prompt.sh
-        dest=~/.git-prompt.sh owner={{ ansible_ssh_user }} group={{ ansible_ssh_user }} mode=0755
+        dest=~/.git-prompt.sh owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0755
+
+- name: ensure bashrc exists
+  file: path=~/.bashrc state=touch
 
 - name: setup bashrc with git completion
   lineinfile: dest=~/.bashrc line='source ~/.git-completion.bash'
@@ -53,3 +56,6 @@
 
 - name: setup bashrc with git SHOWCOLORHINTS
   lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWCOLORHINTS=true'
+
+- name: source bashrc
+  shell: . ~/.bashrc

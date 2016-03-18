@@ -1,5 +1,16 @@
 # vim:ft=yaml
 ---
-- name: change shell to zsh
-  shell: chsh -s $(which zsh)
+- include: homebrew.yml
+  when: ansible_os_family == 'Darwin'
 
+- include: ubuntu.yml
+  when: ansible_os_family == 'Debian'
+
+- name: setup files                                                            
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user_id }} force=yes
+  with_items:                                                                  
+    - { name: '.zshrc' }                                                      
+    - { name: '.jmaliases' }                                                      
+
+- name: Set zsh as default shell
+  shell: chsh -s {{ zsh_path }}

@@ -55,8 +55,8 @@
   file:
     path: "{{ znc_config_dir }}"
     state: directory
-    owner: "{{ ansible_ssh_user }}"
-    group: "{{ ansible_ssh_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0750
 
 - name: open znc port
@@ -69,7 +69,7 @@
   args:
     creates: "{{ znc_datadir }}/znc.pem"
   sudo: yes
-  sudo_user: "{{ ansible_ssh_user }}"
+  sudo_user: "{{ ansible_user_id }}"
   notify: znc
   when: znc_ssl
 
@@ -94,6 +94,6 @@
 - name: Configuration ownership
   file:
     path: "{{ znc_datadir }}/configs/znc.conf"
-    owner: "{{ ansible_ssh_user }}"
-    group: "{{ ansible_ssh_user }}"
+    owner: "{{ ansible_user_id }}"
+    group: "{{ ansible_user_id }}"
     mode: 0600
