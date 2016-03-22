@@ -1,0 +1,26 @@
+---
+- name: uninstall python and macvim forumla
+  homebrew: name=python,macvim state=absent
+
+- name: install python formula
+  homebrew: name=python state=present update_homebrew=yes
+
+- name: link python formula
+  shell: brew link python
+
+- name: Check if xcode is installed
+  command: ls /Applications/Xcode.app
+  register: xcode_check
+  ignore_errors: true
+
+- name: Notify user to install XCode if not installed
+  fail: msg="Please install XCode before trying to install MacVim via Homebrew"
+  when: xcode_check.rc == 1
+
+- name: install macvim formula
+  homebrew: name=macvim install_options=with-python,with-override-system-vim state=present update_homebrew=yes
+  when: xcode_check.rc == 0
+
+- name: link macvim formula
+  shell: brew link macvim
+  when: xcode_check.rc == 0

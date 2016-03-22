@@ -30,6 +30,9 @@
 - name: setup .weechat directory
   synchronize: src=~/.vim/bundle/vim-colorschemes/colors dest=~/.vim/
 
+- include: homebrew.yml
+  when: ansible_os_family == 'Darwin'
+
 # this can take a bit
 # ignoring errors in case it runs out of memory to complete (happens on AWS tiny instances)
 # aka "virtual memory exhausted: Cannot allocate memory"

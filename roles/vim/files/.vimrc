@@ -38,7 +38,8 @@ Plugin 'plasticboy/vim-markdown.git'
 """ coffeescriptplugins
 Plugin 'kchmck/vim-coffee-script.git'
 """ fonts and color plugins
-Plugin 'bling/vim-airline.git'
+Plugin 'vim-airline/vim-airline.git'
+Plugin 'vim-airline/vim-airline-themes.git'
 Plugin 'flazz/vim-colorschemes.git'
 Plugin 'altercation/vim-colors-solarized.git'
 """ formatting
@@ -166,4 +167,4 @@ set noswapfile
 
 "" colors
 set background=dark
-colorscheme vividchalk
+silent! colorscheme vividchalk
