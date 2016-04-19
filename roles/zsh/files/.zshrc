@@ -148,9 +148,14 @@ then
   source ~/.jmprivatealiases
 fi
 
+if [[ -a ~/.jmrax ]]
+then
+  source ~/.jmrax
+fi
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
+source /usr/local/opt/autoenv/activate.sh

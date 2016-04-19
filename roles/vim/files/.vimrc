@@ -13,6 +13,7 @@ Plugin 'scrooloose/nerdcommenter.git'
 "" There is a compile portion for YouCompleteMe
 "" http://valloric.github.io/YouCompleteMe/
 Plugin 'Valloric/YouCompleteMe.git'
+Plugin 'davidhalter/jedi-vim.git'
 """ snippets
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
@@ -119,6 +120,8 @@ let g:Syntastic_javascript_checkers = ['eslint', 'jshint']
 "" airline
 let g:airline_theme = "wombat"
 let g:airline_powerline_fonts = 1
+"" Jedi Vim
+let g:jedi#use_splits_not_buffers = "right"
 "" Pytdiction
 let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 filetype indent plugin on
