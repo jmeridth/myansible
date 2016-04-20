@@ -1,1 +1,1 @@
-export ANSIBLE_HOSTS=$PWD/hosts
+cp hosts ~/ansible_hosts

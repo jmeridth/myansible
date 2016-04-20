@@ -1,12 +1,17 @@
 # vim:ft=yaml
 ---
-- name: install homebrew
+- name: Check if homebrew is installed
+  command: which brew
+  register: homebrew_check
+  ignore_errors: true
+
+- name: install homebrew if not installed
   shell: '/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-  when: ansible_os_family == 'Darwin'
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
 
 - name: install homebrew formulas
   homebrew: name=git state=present update_homebrew=yes
-  when: ansible_os_family == 'Darwin'
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
 
 - name: install python-software-properties package to ensure add-apt-repository is available
   sudo: yes                                                                    
@@ -22,40 +27,14 @@
     repo: 'ppa:git-core/ppa'
   when: ansible_os_family == 'Debian'
 
-- name: Install packages
-  action: "{{ ansible_pkg_mgr }} state=installed name={{ item }}"
-  with_items: build_packages[ansible_distribution]
-  sudo: true
-
 - name: get git repo                                                           
   git: repo=git://github.com/git/git.git                           
        dest={{ default_dev_path }}/git accept_hostkey=True
                                                                                
 - name: setup git completion                                                   
   copy: src={{ default_dev_path }}/git/contrib/completion/git-completion.bash
-        dest=~/.git-completion.bash owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0755
+        dest=~/.git-completion.bash owner={{ ansible_user_id }} mode=0755
                                                                                
 - name: setup git prompts                                                   
   copy: src={{ default_dev_path }}/git/contrib/completion/git-prompt.sh
-        dest=~/.git-prompt.sh owner={{ ansible_user_id }} group={{ ansible_user_id }} mode=0755
-
-- name: ensure bashrc exists
-  file: path=~/.bashrc state=touch
-
-- name: setup bashrc with git completion
-  lineinfile: dest=~/.bashrc line='source ~/.git-completion.bash'
-
-- name: setup bashrc with git prompt
-  lineinfile: dest=~/.bashrc line='source ~/.git-prompt.sh'
-
-- name: setup bashrc with git SHOWDIRTYSTATE
-  lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWDIRTYSTATE=true'
-
-- name: setup bashrc with git SHOWSTASHSTATE
-  lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWSTASHSTATE=true'
-
-- name: setup bashrc with git SHOWCOLORHINTS
-  lineinfile: dest=~/.bashrc line='GIT_PS1_SHOWCOLORHINTS=true'
-
-- name: source bashrc
-  shell: . ~/.bashrc
+        dest=~/.git-prompt.sh owner={{ ansible_user_id }} mode=0755

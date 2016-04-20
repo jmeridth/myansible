@@ -5,7 +5,7 @@ call vundle#begin()
 let mapleader=","
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree.git'
-Plugin 'kien/ctrlp.vim.git'
+Plugin 'ctrlpvim/ctrlp.vim.git'
 """ Plugin 'Xuyuanp/nerdtree-git-plugin'
 """ syntax plugins
 Plugin 'scrooloose/syntastic.git'
@@ -14,17 +14,9 @@ Plugin 'scrooloose/nerdcommenter.git'
 "" http://valloric.github.io/YouCompleteMe/
 Plugin 'Valloric/YouCompleteMe.git'
 Plugin 'davidhalter/jedi-vim.git'
-""" snippets
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
 """ git plugins
 Plugin 'tpope/vim-fugitive.git'
 """ python plugins
-Plugin 'mitechie/pyflakes-pathogen.git'
-Plugin 'fs111/pydoc.vim.git'
-Plugin 'rkulla/pydiction.git'
 Plugin 'nvie/vim-flake8.git'
 """ ruby plugins
 Plugin 'vim-ruby/vim-ruby.git'
@@ -94,6 +86,8 @@ let NERDRemoveExtraSpaces = 1
 let g:ctrlp_custom_ignore = 'vendor/ruby/\|node_modules/\|tmp/|coverage/'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_use_caching = 1
+"" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
 "" Syntastic
 "" from https://github.com/scrooloose/syntastic#3-recommended-settings
 set statusline+=%#warningmsg#
@@ -106,6 +100,7 @@ let g:syntastic_check_on_wq = 0
 "" Syntastic python
 let g:syntastic_python_flake8_args = "--builtins=_"
 let g:syntastic_python_checkers=['flake8']
+let python_highlight_all=1
 "" Syntastic ruby
 let g:syntastic_ruby_checkers=['rubocop', 'rubylint']
 let g:syntastic_ruby_rubocop_exec='~/.rubocop.sh'
@@ -122,8 +117,7 @@ let g:airline_theme = "wombat"
 let g:airline_powerline_fonts = 1
 "" Jedi Vim
 let g:jedi#use_splits_not_buffers = "right"
-"" Pytdiction
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
+let g:jedi#show_call_signatures = "1"
 filetype indent plugin on
 syntax on                         " syntax coloring on
 set cursorline                    " hightlight current line
@@ -168,6 +162,9 @@ set nowritebackup
 "" No swap files; more hassle then they're worth
 set noswapfile
 
+set shortmess+=c
+
 "" colors
 set background=dark
 silent! colorscheme vividchalk
+call togglebg#map("<F5>")

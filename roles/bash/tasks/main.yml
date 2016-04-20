@@ -1,0 +1,14 @@
+# vim:ft=yaml
+---
+- name: ensure bashrc exists
+  file: path=~/.bashrc state=touch
+
+- name: setup bashrc file
+  copy: src=.bashrc dest=~/.bashrc owner={{ ansible_ssh_user }}
+        group={{ ansible_ssh_user }} force=yes
+
+- name: source bashrc
+  shell: . ~/.bashrc
+
+- name: Set bash as default shell
+  shell: chsh -s /bin/bash
