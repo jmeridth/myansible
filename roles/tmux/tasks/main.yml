@@ -18,6 +18,10 @@
   apt: pkg=tmux state=latest update_cache=yes                              
   when: ansible_os_family == 'Debian'
 
+- name: install tmux plugin manager
+  git: repo=https://github.com/tmux-plugins/tpm
+       dest=~/.tmux/plugins/tpm accept_hostkey=True
+
 - name: setup files                                                            
   copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user_id }} force=yes
   with_items:                                                                  
