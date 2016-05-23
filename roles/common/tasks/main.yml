@@ -1,6 +1,6 @@
 ---                      
 #- name: remove password prompt for sudo
-#  sudo: yes
+#  become: yes
 #  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
 
 #- include: packages.yml                                                          

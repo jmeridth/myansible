@@ -1,26 +1,26 @@
 ---
 - name: disable default site
-  sudo: yes                                                           
+  become: yes                                                           
   file: path=/etc/nginx/sites-enabled/default state=absent
       
 - name: make sure website folders exist
-  sudo: yes                                                           
+  become: yes                                                           
   file: state=directory path=/var/www/{{ item }}/html
   with_items: sites
 
 - name: get github website files
-  sudo: yes
+  become: yes
   git: repo=https://github.com/jmeridth/{{ item }}.git
        dest=/var/www/{{ item }}/html
   with_items: sites
 
 - name: setup websites
-  sudo: yes
+  become: yes
   copy: src={{ item }} dest=/etc/nginx/sites-available/
   with_items: sites
 
 - name: enable websites
-  sudo: yes
+  become: yes
   file: src=/etc/nginx/sites-available/{{ item }}
         dest=/etc/nginx/sites-enabled/{{ item }}
         owner=root

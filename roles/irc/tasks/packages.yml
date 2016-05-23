@@ -1,14 +1,14 @@
 ---
 - name: install python-software-properties package to ensure add-apt-repository is available
-  sudo: yes                                                                    
+  become: yes                                                                    
   apt: pkg=python-software-properties state=latest update_cache=yes                              
 
 - name: add swig3.0 ppa  #advised from http://wiki.znc.in/Installation#Ubuntu
-  sudo: yes
+  become: yes
   shell: add-apt-repository -y ppa:teward/swig3.0
 
 - name: install packages                                                       
-  sudo: yes                                                                    
+  become: yes                                                                    
   apt: pkg={{ item }} state=latest update_cache=yes                              
   with_items:                                                                  
     - build-essential
@@ -19,6 +19,6 @@
     - libicu-dev
 
 - name: clean up apt stuff
-  sudo: yes
+  become: yes
   action: shell apt-get -f install && apt-get autoremove && apt-get -y autoclean && apt-get -y clean
   tags: clean

@@ -1,7 +1,7 @@
 # Current assumption is that local is an Ubuntu 14.04 LTS OS
 ---                                                                                
 - name: install packages
-  sudo: yes
+  become: yes
   apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
     - vpnc

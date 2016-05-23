@@ -1,14 +1,14 @@
 ---
 - name: enable ufw
-  sudo: yes
+  become: yes
   ufw: state=enabled policy=deny
 
 - name: turn on ufw loggin
-  sudo: yes
+  become: yes
   ufw: logging=on
 
 - name: open ports
-  sudo: yes 
+  become: yes 
   ufw: rule=allow port={{ item.port }} proto={{ item.proto }} 
   with_items:
     - { port: 22, proto: tcp }

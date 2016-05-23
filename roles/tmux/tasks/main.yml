@@ -14,7 +14,7 @@
   when: ansible_os_family == 'Darwin'
 
 - name: install packages                                                       
-  sudo: yes                                                                    
+  become: yes                                                                    
   apt: pkg=tmux state=latest update_cache=yes                              
   when: ansible_os_family == 'Debian'
 
@@ -23,6 +23,6 @@
        dest=~/.tmux/plugins/tpm accept_hostkey=True
 
 - name: setup files                                                            
-  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user_id }} force=yes
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user }} force=yes
   with_items:                                                                  
     - { name: '.tmux.conf' }                                                      

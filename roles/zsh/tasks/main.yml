@@ -7,7 +7,7 @@
   when: ansible_os_family == 'Debian'
 
 - name: setup files                                                            
-  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user_id }} force=yes
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user }} force=yes
   with_items:                                                                  
     - { name: '.zshrc' }                                                      
     - { name: '.jmaliases' }                                                      

@@ -1,5 +1,5 @@
 ---
-znc_datadir: /home/{{ ansible_user_id}}/.znc
+znc_datadir: /home/{{ ansible_user}}/.znc
 znc_service: true
 znc_port: 7881
 znc_ipv4: true
@@ -16,7 +16,7 @@ znc_user_buffer: 50
 znc_user_autoclearchanbuffer: false
 znc_force_config_refresh: no
 
-weechat_datadir: /home/{{ ansible_user_id}}/.weechat
+weechat_datadir: '.weechat'
 weechat_network_password: "admin"
 weechat_ssldir: "{{ weechat_datadir }}/ssl"
 weechat_ssl_file: "{{ weechat_ssldir }}/relay.pem"

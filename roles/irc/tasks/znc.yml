@@ -10,17 +10,17 @@
       - ansible_distribution_version in [ '12.04','14.04','14.10' ]
 
 - name: Configure for ZNC PPA #advised from http://wiki.znc.in/Installation#Ubuntu
-  sudo: yes
+  become: yes
   apt_repository:
     repo: 'ppa:teward/znc'
 
 - name: Configure for ZNC PPA on Ubuntu #advised from http://wiki.znc.in/Installation#Ubuntu
-  sudo: yes
+  become: yes
   apt_repository:
     repo: 'ppa:teward/swig3.0'
 
 - name: Install ZNC
-  sudo: yes
+  become: yes
   apt:
     name: "{{ item }}"
     update_cache: yes
@@ -29,7 +29,7 @@
     - swig3.0
 
 - name: Install upstart script
-  sudo: yes
+  become: yes
   template:
     src: upstart.j2
     dest: /etc/init/znc.conf
@@ -41,35 +41,34 @@
   when: znc_service
   
 - name: Remove upstart script
-  sudo: yes
+  become: yes
   file:
     dest: /etc/init/znc.conf
     state: absent
   when: not znc_service
 
 - command: initctl reload-configuration
-  sudo: yes
+  become: yes
   when: znc_upstart_installed|changed
 
 - name: Create directory tree
   file:
     path: "{{ znc_config_dir }}"
     state: directory
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0750
 
 - name: open znc port
-  sudo: yes
+  become: yes
   ufw: rule=allow port={{ znc_port }} proto=tcp
 
 - name: Self-signed SSL certificate
-  sudo: yes
+  become: yes
   command: znc --datadir={{ znc_datadir }} --makepem
   args:
     creates: "{{ znc_datadir }}/znc.pem"
-  sudo: yes
-  sudo_user: "{{ ansible_user_id }}"
+  become_user: "{{ ansible_user }}"
   notify: znc
   when: znc_ssl
 
@@ -94,6 +93,6 @@
 - name: Configuration ownership
   file:
     path: "{{ znc_datadir }}/configs/znc.conf"
-    owner: "{{ ansible_user_id }}"
-    group: "{{ ansible_user_id }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
     mode: 0600

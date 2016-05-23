@@ -1,6 +1,6 @@
 ---
 - name: install packages                                                       
-  sudo: yes                                                                    
+  become: yes                                                                    
   apt: pkg={{ item }} state=latest update_cache=yes                              
   with_items:                                                                  
     - nodejs
@@ -8,5 +8,5 @@
     - npm
 
 - name: install keybase
-  sudo: yes
+  become: yes
   shell: sudo npm install -g keybase-installer && sudo keybase-installer

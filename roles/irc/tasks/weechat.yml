@@ -1,39 +1,40 @@
 ---
 - name: ppa for latest weechat
-  sudo: yes
+  become: yes
   apt_repository:
     repo: 'ppa:nesthib/weechat-stable'
 
 - name: install weechat
-  sudo: yes
+  become: yes
   apt:
     name: weechat
     update_cache: yes
 
 - name: setup .weechat directory
   synchronize: src="{{ weechat_datadir }}" dest=~/
+  tags: weechatdir
 
 - name: Check for relay config
   stat:
     path: "{{ weechat_datadir }}/relay.conf"
-  register: weechat_relay_config_stat
+  register: weechat_relay_config
 
 - name: install relay conf
   template:
     src: weechat_relay.conf.j2
-    dest: "{{ weechat_datadir }}/relay.conf"
-  when: weechat_relay_stat.stat.exists == false
+    dest: "~/{{ weechat_datadir }}/relay.conf"
+  when: weechat_relay_config.stat.exists == false
 
 - name: Check for irc config
   stat:
-    path: "{{ weechat_datadir }}/irc.conf"
-  register: weechat_irc_config_stat
+    path: "~/{{ weechat_datadir }}/irc.conf"
+  register: weechat_irc_config
 
 - name: install irc conf
   template:
     src: weechat_irc.conf.j2
-    dest: "{{ weechat_datadir }}/irc.conf"
-  when: weechat_irc_stat.stat.exists == false
+    dest: "~/{{ weechat_datadir }}/irc.conf"
+  when: weechat_irc_config.stat.exists == false
 
 - name: ensure ssl directory exists
   file: path="{{ weechat_datadir }}/ssl" state=directory
@@ -41,16 +42,16 @@
   tags: weechatrelay
 
 - name: Self-signed SSL certificate
-  sudo: yes
+  become: yes
   command: openssl req -nodes -newkey rsa:2048 -keyout relay.pem -x509 -days 365 -subj '/C=US/ST=TX/O=Meridth LLC/CN=irc.jasonmeridth.com' -out relay.pem
   args:
     chdir: "{{ weechat_ssldir }}"
-  sudo_user: "{{ ansible_user_id }}"
+  become_user: "{{ ansible_user }}"
   when: weechat_relay_ssl
   tags: weechatrelay
 
 - name: open weechat relay ssl port
-  sudo: yes
+  become: yes
   ufw: rule=allow port={{ weechat_ssl_port }} proto=tcp
 
 # once on weechat, need to run '/relay add ssl.weechat 9001', haven't found it in any of the configs yet

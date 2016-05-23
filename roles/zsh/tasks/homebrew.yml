@@ -15,5 +15,5 @@
 
 - name: add zsh to /etc/shells when homebrew
   shell: echo $(which zsh) >> /etc/shells
-  sudo: yes
+  become: yes
   when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1

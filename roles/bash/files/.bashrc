@@ -1,30 +1,14 @@
-EDITOR=vim
+export EDITOR=vim
 
-if [[ -a ~/.jmaliases ]]
-then
-  source ~/.jmaliases
-fi
+# ALIASES
+if [[ -a $HOME/.jmaliases ]] ; then source $HOME/.jmaliases ; fi
+if [[ -a $HOME/.jmprivatealiases ]] ; then source $HOME/.jmprivatealiases ; fi
+if [[ -a $HOME/.jmrax ]] ; then source $HOME/.jmrax ; fi
 
-if [[ -a ~/.jmprivatealiases ]]
-then
-  source ~/.jmprivatealiases
-fi
 
-if [[ -a ~/.jmrax ]]
-then
-  source ~/.jmrax
-fi
-
-if [[ -a ~/.git-completion.bash ]]
-then
-  source ~/.git-completion.bash
-fi
-
-if [[ -a ~/.git-prompt.sh ]]
-then
-  source ~/.git-prompt.sh
-fi
-
+# GIT
+if [[ -a $HOME/.git-completion.bash ]] ; then source $HOME/.git-completion.bash ; fi
+if [[ -a $HOME/.git-prompt.sh ]] ; then source $HOME/.git-prompt.sh ; fi
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWCOLORHINTS=true
@@ -48,8 +32,36 @@ WHITE="\[\e[1;37m\]"
 RESET_COLOR="\[\e[0m\]"
 
 export PS1="$WHITE[\h]${CYAN}[\w]\n\$(__git_ps1 '[%s]')${YELLOW}->\$ ${RESET_COLOR}"
-export ANSIBLE_HOSTS=~/ansible_hosts
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
+# HOMEBREW
+export PATH=$(brew --prefix)/lib:$PATH
+
+# OPENCAFE
+
+if [[ -a $HOME/.cafe-completion ]] ; then source $HOME/.cafe-completion ; fi
+
+# ANSIBLE
+export ANSIBLE_HOSTS=~/ansible_hosts
+
+# TMUX/TMUXINATOR
+if [[ -a $HOME/.tmuxinator.bash ]] ; then source $HOME/.tmuxinator.bash ; fi
+export DISABLE_AUTO_TITLE=true
+
+# AUTOENV
+if [[ -a /usr/local/opt/autoenv/activate.sh ]] ; then source /usr/local/opt/autoenv/activate.sh ; fi
+
+# VIRTUALENVWRAPPER
+if [[ -a /usr/local/bin/virtualenvwrapper.sh ]] ; then source /usr/local/bin/virtualenvwrapper.sh ; fi
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/dev
+
+# PYENV
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+if which pyenv > /dev/null; then pyenv virtualenvwrapper; fi
+
+# RVM
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
-source /usr/local/opt/autoenv/activate.sh
+export PATH="$PATH:$HOME/.rvm/bin"

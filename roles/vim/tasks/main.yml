@@ -1,17 +1,17 @@
 ---
 - name: setup directories                                                      
-  file: path=~/{{ item.path }} owner={{ ansible_user_id }} mode=0755 state=directory
+  file: path=~/{{ item.path }} owner={{ ansible_user }} mode=0755 state=directory
   with_items:                                                                  
     - { path: '.vim' }                                                         
     - { path: '.vim/colors' }                                                  
     - { path: '.vim/bundle' }                                                  
 
 - name: setup default colors
-  copy: src='colors/' dest=~/.vim/colors/ owner={{ ansible_user_id }}
+  copy: src='colors/' dest=~/.vim/colors/ owner={{ ansible_user }}
         force=yes
                                                                                
 - name: setup files                                                            
-  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user_id }} force=yes
+  copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user }} force=yes
   with_items:                                                                  
     - { name: '.vimrc' }                                                      
 
@@ -38,7 +38,7 @@
 # aka "virtual memory exhausted: Cannot allocate memory"
 # maybe check if there is a swap and only install if there is one >= 1GB
 - name: finish YouCompleteMe compilation
-  sudo: yes
+  become: yes
   shell: ./install.py --clang-completer
   args:
     chdir: ~/.vim/bundle/YouCompleteMe

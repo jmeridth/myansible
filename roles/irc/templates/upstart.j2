@@ -8,8 +8,8 @@ stop on runlevel [016]
 
 respawn
 respawn limit 10 5
-setuid {{ ansible_user_id }}
-setgid {{ ansible_user_id }}
+setuid {{ ansible_user }}
+setgid {{ ansible_user }}
 
 script
 exec /usr/bin/znc --datadir={{ znc_datadir }} -f
