@@ -1,19 +1,7 @@
----                      
-#- name: remove password prompt for sudo
-#  become: yes
-#  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
+---
+- name: remove password prompt for sudo
+  become: yes
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
 
-#- include: packages.yml                                                          
-#  tags: packages
-
-- include: git.yml
-  tags: git
-
-- include: filesystem.yml
-  tags: filesystem
-
-- include: bashrc.yml 
-  tags: bashrc
-
-- include: vim.yml
-  tags: vim
+- include: dotfiles.yml
+  tags: dotfiles

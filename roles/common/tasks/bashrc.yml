@@ -1,6 +1,0 @@
----
-- name: ensure bashrc exists
-  file: path=~/.bashrc state=touch
-
-- name: source bashrc
-  shell: . ~/.bashrc

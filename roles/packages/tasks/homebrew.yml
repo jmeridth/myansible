@@ -20,7 +20,6 @@
     - cmake
     - coreutils
     - docker
-    - docker-machine
     - git
     - go
     - gpg
@@ -29,41 +28,29 @@
     - libyaml
     - node
     - pow
+    - pyenv
+    - pyenv-virtualenvwrapper
     - tmux
     - tree
     - watch
     - wget
-    - zsh
-    - zsh-completions
 
 - name: install homebrew casks
   homebrew_cask: name={{ item }} state=present
   with_items:
     - appzapper
     - dropbox
-    - evernote
     - firefox
     - gitter
     - google-chrome
     - google-drive
+    - google-cloud-sdk
     - iterm2
     - launchrocket
-    - ngrok
     - seil
     - skype
     - slack
     - spotify
-    - textual
-    - virtualbox
-
-- name: uninstall python and macvim forumla
-  homebrew: name=python,macvim state=absent
-
-- name: install python formula
-  homebrew: name=python state=present update_homebrew=yes
-
-- name: link python formula
-  shell: brew link python
 
 - name: Check if xcode is installed
   command: ls /Applications/Xcode.app
@@ -73,11 +60,3 @@
 - name: Notify user to install XCode if not installed
   fail: msg="Please install XCode before trying to install MacVim via Homebrew"
   when: xcode_check.rc == 1
-
-- name: install macvim formula
-  homebrew: name=macvim install_options=with-python,with-override-system-vim state=present update_homebrew=yes
-  when: xcode_check.rc == 0
-
-- name: link macvim formula
-  shell: brew link macvim
-  when: xcode_check.rc == 0

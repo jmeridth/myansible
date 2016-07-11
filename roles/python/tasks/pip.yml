@@ -8,4 +8,4 @@
 
 - name: install python modules
   become: yes
-  action: shell pip install virtualenv tox virtualenvwrapper
+  shell: sudo pip install flake8 tox virtualenvwrapper

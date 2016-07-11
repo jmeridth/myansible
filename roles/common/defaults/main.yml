@@ -1,4 +1,2 @@
 ---
-host_key_checking: False
-nocows: 1
-dev_dir: $HOME/dev
+default_dev_path: $HOME/dev
