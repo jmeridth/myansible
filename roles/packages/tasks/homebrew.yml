@@ -28,8 +28,6 @@
     - libyaml
     - node
     - pow
-    - pyenv
-    - pyenv-virtualenvwrapper
     - tmux
     - tree
     - watch

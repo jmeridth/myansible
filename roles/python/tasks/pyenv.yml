@@ -1,0 +1,54 @@
+---
+- name: clone pyenv repository to ~/.pyenv
+  git: repo=https://github.com/yyuu/pyenv
+       accept_hostkey=yes
+       dest="{{ ansible_env.HOME }}/.pyenv"
+
+- name: setup PYENV_ROOT environment variable in bashrc
+  become: yes
+  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
+              state=present
+              line='export PYENV_ROOT="$HOME/.pyenv"'
+
+- name: setup pyenv/bin in PATH in bashrc
+  become: yes
+  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
+              state=present
+              line='export PATH="$PYENV_ROOT/bin:$PATH"'
+
+- name: enable shims and automcompletion of pyenv in bashrc
+  become: yes
+  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
+              state=present
+              line='eval "$(pyenv init -)"'
+
+- name: clone pyenv-virtualenvwrapper repository to ~/.pyenv/plugins/pyenv-virtualenvwrapper
+  git: repo=https://github.com/yyuu/pyenv-virtualenvwrapper
+       accept_hostkey=yes
+       dest="{{ ansible_env.HOME }}/.pyenv/plugins/pyenv-virtualenvwrapper"
+
+- name: setup PYENV_VIRTUALENVWRAPPER_PREFER_PYENV environment variable in bashrc
+  become: yes
+  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
+              state=present
+              line='export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"'
+
+- name: setup pyenv-virtualenvwrapper initialization in bashrc
+  become: yes
+  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
+              state=present
+              line='pyenv virtualenvwrapper'
+
+- name: re-source shell
+  shell: exec $SHELL
+
+- name: install python 2.7.11
+  shell: pyenv install 2.7.11 --skip-existing
+
+- name: rehash python
+  shell: pyenv rehash
+
+- name: set 2.7.11 as default for qe rax billing applications
+  shell: pyenv local 2.7.11
+  args:
+    chdir: "{{ workspace }}"

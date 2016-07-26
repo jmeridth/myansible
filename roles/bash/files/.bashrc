@@ -50,18 +50,6 @@ export DISABLE_AUTO_TITLE=true
 # AUTOENV
 if [[ -a /usr/local/opt/autoenv/activate.sh ]] ; then source /usr/local/opt/autoenv/activate.sh ; fi
 
-# VIRTUALENVWRAPPER
-if [[ -a /usr/local/bin/virtualenvwrapper.sh ]] ; then source /usr/local/bin/virtualenvwrapper.sh ; fi
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/dev
-
-# PYENV
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
-if which pyenv > /dev/null; then pyenv virtualenvwrapper; fi
-
 # RVM
 if [[ -s $HOME/.rvm/scripts/rvm ]] ; then source $HOME/.rvm/scripts/rvm ; fi
 export PATH="$PATH:$HOME/.rvm/bin"
