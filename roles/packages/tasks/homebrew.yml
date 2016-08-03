@@ -17,6 +17,7 @@
     - ag
     - ansible
     - autoenv
+    - ccat
     - cmake
     - coreutils
     - docker
