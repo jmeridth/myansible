@@ -22,23 +22,6 @@
               state=present
               line='eval "$(pyenv init -)"'
 
-- name: clone pyenv-virtualenvwrapper repository to ~/.pyenv/plugins/pyenv-virtualenvwrapper
-  git: repo=https://github.com/yyuu/pyenv-virtualenvwrapper
-       accept_hostkey=yes
-       dest="{{ ansible_env.HOME }}/.pyenv/plugins/pyenv-virtualenvwrapper"
-
-- name: setup PYENV_VIRTUALENVWRAPPER_PREFER_PYENV environment variable in bashrc
-  become: yes
-  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
-              state=present
-              line='export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"'
-
-- name: setup pyenv-virtualenvwrapper initialization in bashrc
-  become: yes
-  lineinfile: dest="{{ ansible_env.HOME }}/.bashrc"
-              state=present
-              line='pyenv virtualenvwrapper'
-
 - name: re-source shell
   shell: exec $SHELL
 
@@ -48,7 +31,7 @@
 - name: rehash python
   shell: pyenv rehash
 
-- name: set 2.7.11 as default for qe rax billing applications
+- name: set 2.7.11 as default for
   shell: pyenv local 2.7.11
   args:
     chdir: "{{ workspace }}"
