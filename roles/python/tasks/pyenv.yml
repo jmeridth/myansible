@@ -25,13 +25,16 @@
 - name: re-source shell
   shell: exec $SHELL
 
-- name: install python 2.7.11
-  shell: pyenv install 2.7.11 --skip-existing
+- name: install python 2.7.13
+  shell: pyenv install 2.7.13 --skip-existing
+
+- name: install python 3.6.0
+  shell: pyenv install 3.6.0 --skip-existing
 
 - name: rehash python
   shell: pyenv rehash
 
-- name: set 2.7.11 as default for
-  shell: pyenv local 2.7.11
+- name: set 2.7.13 as default
+  shell: pyenv local 2.7.13
   args:
     chdir: "{{ workspace }}"

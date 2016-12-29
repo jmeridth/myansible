@@ -2,6 +2,7 @@
 - name: remove password prompt for sudo
   become: yes
   lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
+  tags: removesudoprompt
 
 - include: dotfiles.yml
   tags: dotfiles

@@ -4,8 +4,9 @@
 
 # for some reason sudo: yes and sudo_user: {{ ansible_user }} doesn't work :(
 - name: install pip
-  shell: sudo python ~/get-pip.py
+  become: yes
+  shell: python ~/get-pip.py
 
 - name: install python modules
   become: yes
-  shell: sudo pip install flake8 tox virtualenvwrapper
+  shell: pip install flake8 tox virtualenvwrapper

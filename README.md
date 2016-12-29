@@ -4,7 +4,7 @@ To get your hosts setup, you need to have hosts populated in /etc/ansible/hosts 
 
     [web]
     345.43.24.218
-    
+
     [remote]
     123.23.23.25
 
@@ -14,9 +14,9 @@ To get your hosts setup, you need to have hosts populated in /etc/ansible/hosts 
     [local]
     localhost  ansible_connection=local
 
-or you can use the default hosts file I have in this repo by sourcing the `.setup_env` file to just run locally.
+or you can use the default hosts file I have in this repo by running the `setup_env.sh` file to just run locally.
 
-    `source .setup_env`
+    `./setup_env.sh`
 
 It will set the `ANSIBLE_HOSTS` environment variable and point it to this repo's `hosts` file.
 
