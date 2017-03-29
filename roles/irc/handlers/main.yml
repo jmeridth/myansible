@@ -5,3 +5,10 @@
       name: znc
       state: restarted
     when: znc_service==true
+
+  - name: znc_systemd
+    become: yes
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: znc

@@ -28,6 +28,25 @@
     - znc
     - swig3.0
 
+- name: Install systemd script
+  become: yes
+  template:
+    src: systemd.j2
+    dest: /etc/systemd/system/znc.service
+    owner: root
+    group: root
+    mode: 0644
+  register: znc_systemd_installed
+  notify: znc_systemd
+  when: znc_service
+
+- name: Remove systemd script
+  become: yes
+  file:
+    dest: /etc/systemd/system/znc.service
+    state: absent
+  when: not znc_service
+
 - name: Install upstart script
   become: yes
   template:
@@ -39,7 +58,7 @@
   register: znc_upstart_installed
   notify: znc
   when: znc_service
-  
+
 - name: Remove upstart script
   become: yes
   file:
