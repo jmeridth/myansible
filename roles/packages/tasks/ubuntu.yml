@@ -27,27 +27,29 @@
   become: yes
   apt: pkg={{ item }} state=latest update_cache=yes
   with_items:
-    - build-essential
-    - software-properties-common
-    - tmux
-    - vim
-    - cmake
-    - curl
-    - wget
-    - make
-    - git
     - ansible
+    - build-essential
+    - cmake
+    - coffeescript
+    - curl
+    - docker
+    - fontconfig
+    - git
+    - libffi-dev
     - libxml2-dev
     - libxslt1-dev
-    - libffi-dev
-    - python-software-properties
-    - python-dev
     - libz-dev
-    - fontconfig
-    - docker
+    - make
+    - neovim
     - nodejs
     - nodejs-legacy
     - npm
+    - python-dev
+    - python-software-properties
+    - software-properties-common
+    - tmux
+    - vim
+    - wget
 
 - name: clean up apt stuff
   become: yes
