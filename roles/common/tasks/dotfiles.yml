@@ -1,9 +1,9 @@
 ---
 - name: get dotfiles repo
   git: repo=git://github.com/jmeridth/dotfiles.git
-       dest={{ default_dev_path }}/dotfiles accept_hostkey=True
+       dest={{ default_code_path }}/dotfiles accept_hostkey=True
 
 - name: run setup.sh
   shell: ./setup.sh
   args:
-    chdir: "{{ default_dev_path }}/dotfiles"
+    chdir: "{{ default_code_path }}/dotfiles"
