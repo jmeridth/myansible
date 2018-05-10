@@ -2,4 +2,4 @@
 - hosts: local
   roles:
     - { role: packages, tags: [ 'packages' ] }
-    - { role: python, tags: [ 'python' ] }
+    - { role: bash, tags: [ 'bash' ] }
