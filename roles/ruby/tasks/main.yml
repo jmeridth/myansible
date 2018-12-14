@@ -1,15 +1,15 @@
----                      
+---
 - include: gemrc.yml
   tags: gemrc
 
 - include: rvm.yml
   tags: rvm
 
-- name: setup files                                                            
+- name: setup files
   copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user }} force=yes
-  with_items:                                                                  
-    - { name: '.pryrc' }                                                      
-    - { name: '.powrc' }                                                      
+  with_items:
+    - { name: '.pryrc' }
+    - { name: '.powrc' }
 
-- name: setup rubocop.sh file                                                            
+- name: setup rubocop.sh file
   copy: src=rubocop.sh dest=~/.vim/rubocop.sh owner={{ ansible_user }} force=yes

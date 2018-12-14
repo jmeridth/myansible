@@ -1,6 +1,7 @@
 ---
 - name: install rvm
   shell: curl -sSL https://get.rvm.io | bash
+  become: true
 
 - name: source rvm
-  shell: source $HOME/.rvm/scripts/rvm
+  shell: . $HOME/.rvm/scripts/rvm
