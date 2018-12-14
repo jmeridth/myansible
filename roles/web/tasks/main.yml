@@ -1,6 +1,0 @@
----                                                                                
-- include: nginx.yml
-  tags: nginx
-
-- include: sites.yml
-  tags: sites

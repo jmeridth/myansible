@@ -1,5 +1,0 @@
----                                                                                
-- hosts: local
-  roles:
-    - { role: packages, tags: [ 'packages' ] }
-    - { role: tmux, tags: [ 'tmux' ] }

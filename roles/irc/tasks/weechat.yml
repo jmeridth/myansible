@@ -1,17 +1,19 @@
 ---
 - name: ppa for latest weechat
-  become: yes
+  become: true
   apt_repository:
     repo: 'ppa:nesthib/weechat-stable'
 
 - name: install weechat
-  become: yes
+  become: true
   apt:
     name: weechat
     update_cache: yes
 
 - name: setup .weechat directory
-  synchronize: src="{{ weechat_datadir }}" dest=~/
+  synchronize:
+    src: "{{ weechat_datadir }}"
+    dest: ~/
   tags: weechatdir
 
 - name: Check for relay config
@@ -42,7 +44,7 @@
   tags: weechatrelay
 
 - name: Self-signed SSL certificate
-  become: yes
+  become: true
   command: openssl req -nodes -newkey rsa:2048 -keyout relay.pem -x509 -days 365 -subj '/C=US/ST=TX/O=Meridth LLC/CN=irc.jasonmeridth.com' -out relay.pem
   args:
     chdir: "{{ weechat_ssldir }}"
@@ -51,7 +53,7 @@
   tags: weechatrelay
 
 - name: open weechat relay ssl port
-  become: yes
+  become: true
   ufw: rule=allow port={{ weechat_ssl_port }} proto=tcp
 
 # once on weechat, need to run '/relay add ssl.weechat 9001', haven't found it in any of the configs yet

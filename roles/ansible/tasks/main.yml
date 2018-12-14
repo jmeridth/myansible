@@ -1,0 +1,44 @@
+---
+- name: Check if homebrew is installed
+  command: which brew
+  register: homebrew_check
+  ignore_errors: true
+  when: ansible_os_family == 'Darwin'
+
+- name: Install homebrew if not installed
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
+
+- name: install ansible via homebrew
+  homebrew: name=ansible state=present
+  when: ansible_os_family == 'Darwin'
+
+- name: make sure python-apt is installed so ansible can install things
+  apt:
+    name: python-apt-common
+    state: latest
+    update_cache: yes
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: install python-software-properties package to ensure add-apt-repository is available
+  apt:
+    name: python-software-properties
+    state: latest
+    update_cache: yes
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: add neovim ppa
+  apt_repository:
+    repo: 'ppa:ansible/ansible'
+  become: yes
+  when: ansible_os_family == 'Debian'
+
+- name: install packages
+  apt:
+    name: ansible
+    state: latest
+    update_cache: yes
+  become: yes
+  when: ansible_os_family == 'Debian'

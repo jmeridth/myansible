@@ -1,16 +1,16 @@
 ---
 - name: install python-software-properties package to ensure add-apt-repository is available
-  become: yes                                                                    
-  apt: pkg=python-software-properties state=latest update_cache=yes                              
+  become: true
+  apt: pkg=python-software-properties state=latest update_cache=yes
 
 - name: add swig3.0 ppa  #advised from http://wiki.znc.in/Installation#Ubuntu
-  become: yes
+  become: true
   shell: add-apt-repository -y ppa:teward/swig3.0
 
-- name: install packages                                                       
-  become: yes                                                                    
-  apt: pkg={{ item }} state=latest update_cache=yes                              
-  with_items:                                                                  
+- name: install packages
+  become: true
+  apt: pkg={{ item }} state=latest update_cache=yes
+  with_items:
     - build-essential
     - libssl-dev
     - libperl-dev
