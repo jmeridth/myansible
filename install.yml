@@ -11,3 +11,5 @@
     - { role: python, tags: ['python'] }
     - { role: ruby, tags: ['ruby'] }
     - { role: irc, tags: ['irc'] }
+    - { role: gpg, tags: ['gpg'] }
+
