@@ -1,3 +1,9 @@
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+
+[![Platform](http://img.shields.io/badge/platform-ubuntu-dd4814.svg?style=flat)](Ubuntu)
+[![Platform](http://img.shields.io/badge/platform-osx-000000.svg?style=flat)](OSX)
+
+
 My personal ansible scripts, building as I have free time
 
 To get your hosts setup, you need to have hosts populated in /etc/ansible/hosts like so:
