@@ -1,12 +1,25 @@
 ---
-- name: install packages                                                       
-  become: yes                                                                    
-  apt: pkg={{ item }} state=latest update_cache=yes                              
-  with_items:                                                                  
-    - nodejs
-    - nodejs-legacy
-    - npm
+- name: Check if homebrew is installed
+  command: which brew
+  register: homebrew_check
+  ignore_errors: true
+  when: ansible_os_family == 'Darwin'
+
+- name: Install homebrew if not installed
+  shell: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  when: ansible_os_family == 'Darwin' and homebrew_check.rc == 1
+
+- name: Ensure homebrew cask installed
+  shell: brew tap caskroom/cask
+  ignore_errors: true
+  when: ansible_os_family == 'Darwin'
+
+- name: install git via homebrew cask
+  homebrew_cask: name=keybase state=present
+  ignore_errors: true
+  when: ansible_os_family == 'Darwin'
 
 - name: install keybase
   become: yes
-  shell: sudo npm install -g keybase-installer && sudo keybase-installer
+  apt: pkg=keybase state=latest update_cache=yes
+  when: ansible_os_family == 'Debian'

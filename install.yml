@@ -1,0 +1,15 @@
+---
+- hosts: local
+  roles:
+    - { role: bash, tags: ['bash'] }
+    - { role: ansible, tags: ['ansible'] }
+    - { role: git, tags: ['git'] }
+    - { role: neovim, tags: ['neovim'] }
+    - { role: vim, tags: ['vim'] }
+    - { role: tmux, tags: ['tmux'] }
+    - { role: minecraft, tags: ['minecraft'] }
+    - { role: python, tags: ['python'] }
+    - { role: ruby, tags: ['ruby'] }
+    - { role: irc, tags: ['irc'] }
+    - { role: gpg, tags: ['gpg'] }
+

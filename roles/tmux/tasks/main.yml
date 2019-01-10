@@ -13,16 +13,16 @@
   homebrew: name=tmux state=present
   when: ansible_os_family == 'Darwin'
 
-- name: install packages                                                       
-  become: yes                                                                    
-  apt: pkg=tmux state=latest update_cache=yes                              
+- name: install packages
+  become: yes
+  apt: pkg=tmux state=latest update_cache=yes
   when: ansible_os_family == 'Debian'
 
 - name: install tmux plugin manager
   git: repo=https://github.com/tmux-plugins/tpm
        dest=~/.tmux/plugins/tpm accept_hostkey=True
 
-- name: setup files                                                            
+- name: setup files
   copy: src={{ item.name }} dest=~/{{ item.name }} owner={{ ansible_user }} force=yes
-  with_items:                                                                  
-    - { name: '.tmux.conf' }                                                      
+  with_items:
+    - { name: '.tmux.conf' }

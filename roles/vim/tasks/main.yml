@@ -15,13 +15,6 @@
   with_items:
     - { name: '.vimrc' }
 
-- name: get Vundle repository
-  git: repo=https://github.com/gmarik/Vundle.vim.git
-       dest=~/.vim/bundle/Vundle.vim
-
-- name: run Vundle
-  action: shell vim +PluginInstall! +qall
-
 - name: overwrite colors
   file: path=~/.vim/colors/ state=absent
   tags: vimcolors
@@ -32,17 +25,6 @@
 
 - include: homebrew.yml
   when: ansible_os_family == 'Darwin'
-
-# this can take a bit
-# ignoring errors in case it runs out of memory to complete (happens on AWS tiny instances)
-# aka "virtual memory exhausted: Cannot allocate memory"
-# maybe check if there is a swap and only install if there is one >= 1GB
-- name: finish YouCompleteMe compilation
-  become: yes
-  shell: ./install.py --clang-completer
-  args:
-    chdir: ~/.vim/bundle/YouCompleteMe
-  ignore_errors: yes
 
 - name: get powerline fonts repo
   git: repo=git://github.com/powerline/fonts

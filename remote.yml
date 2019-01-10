@@ -1,5 +1,0 @@
----                                                                                
-- hosts: remote
-  roles:
-    - packages
-    - { role: remote, default_ssh_port: 314 }
